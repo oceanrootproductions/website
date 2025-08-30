@@ -3,7 +3,7 @@ import { useIsMobile } from '../hooks/useIsMobile'
 import fallbackUrl from '../assets/hero-fallback.svg'
 import { isWebGLAvailable } from '../utils/webgl'
 
-const ThreeHero = React.lazy(() => import('../three/ThreeHero'))
+import ThreeHero from '../three/ThreeHero'
 
 export default function ThreeHeroLazy() {
   const mobile = typeof window !== 'undefined' ? useIsMobile() : false
@@ -17,13 +17,5 @@ export default function ThreeHeroLazy() {
     )
   }
 
-  return (
-    <Suspense
-      fallback={
-        <div className="ocean-gradient skeleton" style={{ height: mobile ? '65vh' : '80vh' }} />
-      }
-    >
-      <ThreeHero />
-    </Suspense>
-  )
+  return <ThreeHero />
 }
