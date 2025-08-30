@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B3B5A"/>
+      <stop offset="100%" stop-color="#0B0F12"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="20"/></filter>
+  </defs>
+  <rect width="1200" height="600" fill="url(#ocean)"/>
+  <g transform="translate(600,300)">
+    <circle r="170" fill="#2b6c8f"/>
+    <circle r="110" fill="url(#ocean)"/>
+    <g fill="#8bd3e6">
+      <path d="M 40,20 C 20,100 60,160 40,220" stroke="#8bd3e6" stroke-width="12" fill="none"/>
+      <path d="M -40,10 C -60,90 -20,150 -40,210" stroke="#8bd3e6" stroke-width="10" fill="none"/>
+    </g>
+  </g>
+  <g filter="url(#blur)">
+    <circle cx="1040" cy="520" r="3" fill="#7ee7ff"/>
+    <circle cx="1120" cy="460" r="2.5" fill="#7ee7ff"/>
+    <circle cx="1080" cy="420" r="2" fill="#7ee7ff"/>
+  </g>
+</svg>
+

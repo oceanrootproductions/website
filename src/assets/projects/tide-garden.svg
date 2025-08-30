@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B3B5A"/>
+      <stop offset="100%" stop-color="#0B0F12"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#g2)"/>
+  <rect x="220" y="160" width="360" height="160" rx="20" fill="#2b6c8f"/>
+  <text x="50" y="70" fill="#EAF7FB" font-family="Inter, sans-serif" font-size="24">Tide Garden</text>
+</svg>
+
