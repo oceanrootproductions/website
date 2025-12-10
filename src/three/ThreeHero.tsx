@@ -20,7 +20,7 @@ export default function ThreeHero() {
   const reduced = usePrefersReducedMotion();
   const autoRotate = !reduced;
 
-  const height = isMobile ? "75vh" : "80vh";
+  const height = isMobile ? "82vh" : "82vh";
 
   // Controls UI removed
 
@@ -93,16 +93,14 @@ export default function ThreeHero() {
           />
         </Suspense>
 
-        {/* Controls: only on desktop */}
-        {!isMobile && (
-          <OrbitControls
-            enablePan={false}
-            enableZoom={false}
-            enableRotate={false}
-            autoRotate={autoRotate}
-            autoRotateSpeed={0.6}
-          />
-        )}
+        {/* Controls: auto-rotate camera (input disabled) */}
+        <OrbitControls
+          enablePan={false}
+          enableZoom={false}
+          enableRotate={false}
+          autoRotate={autoRotate}
+          autoRotateSpeed={0.6}
+        />
       </Canvas>
 
       {/* Controls UI removed */}
