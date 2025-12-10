@@ -12,12 +12,13 @@ import cover2 from '../assets/projects/tide-garden.svg'
 import cover3 from '../assets/projects/abyss-lullaby.svg'
 import cover4 from '../assets/projects/coral-signal.svg'
 import coverFortnite from '../assets/pictures/hauntedmansion.jpeg'
+import coverTwisted from '../assets/pictures/twisteddark.jpeg'
 
 export const projects: Project[] = [
   {
     id: 'twisted-dark',
     title: 'Twisted Dark VR',
-    cover: cover1,
+    cover: coverTwisted,
     tags: ['VR', 'Comic Book', 'Unity'],
     link: 'https://www.twistedcomics.co.uk/twisted-dark-the-beginning/'
   },

@@ -20,7 +20,7 @@ export default function ThreeHero() {
   const reduced = usePrefersReducedMotion();
   const autoRotate = !reduced;
 
-  const height = isMobile ? "65vh" : "80vh";
+  const height = isMobile ? "75vh" : "80vh";
 
   // Controls UI removed
 
