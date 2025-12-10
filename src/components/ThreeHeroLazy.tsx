@@ -17,7 +17,7 @@ export default function ThreeHeroLazy() {
       >
         <img
           src={fallbackUrl}
-          alt="Ocean Root Reef"
+          alt="OceanRoot Reef"
           className="w-full max-w-3xl opacity-90"
         />
       </div>

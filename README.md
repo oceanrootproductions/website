@@ -1,4 +1,4 @@
-# Ocean Root Productions — Website
+# OceanRoot Productions — Website
 
 Minimalist, responsive website for a VR studio using React 18 + TypeScript + Vite, TailwindCSS, React Router, and a lightweight React Three Fiber hero scene.
 
@@ -49,4 +49,3 @@ Steps:
 
 - Colors: deep-ocean `#0B3B5A`, seafoam `#EAF7FB`, coral-accent `#FF6B6B`, ink `#0B0F12`.
 - Fonts: headings use Sora (fallback Inter); body uses Inter.
-

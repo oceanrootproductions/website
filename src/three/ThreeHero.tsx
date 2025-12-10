@@ -7,7 +7,7 @@ import {
   Points,
   PointMaterial,
 } from "@react-three/drei";
-import { Water } from "three-stdlib";
+import { Water, RGBELoader } from "three-stdlib";
 import * as THREE from "three";
 import VRHeadset from "./VRHeadset";
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -56,12 +56,12 @@ export default function ThreeHero() {
     <div className="relative ocean-gradient" style={{ height }}>
       <Canvas
         gl={{ antialias: true, alpha: true }}
-        camera={{ position: [3, 2, 4], fov: 50 }}
+        camera={{ position: [4, 2.4, 5], fov: 52 }}
         dpr={[1, 1.75]}
       >
-        <color attach="background" args={["#03040a"]} />
+        <color attach="background" args={["#000000"]} />
         {/* Heavy night fog */}
-        <fogExp2 attach="fog" args={[new THREE.Color("#03040a"), 0.08]} />
+        <fogExp2 attach="fog" args={[new THREE.Color("#fff"), 0.04]} />
 
         {/* Lights */}
         <ambientLight intensity={0.35} color="#8fbfff" />
@@ -84,9 +84,10 @@ export default function ThreeHero() {
 
         {/* Skybox + reflections */}
         <Suspense fallback={null}>
+          <FoggySky />
           <Environment
-            files="https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/4k/moonlit_golf_4k.exr"
-            background
+            files={HDRI_URL}
+            background={false}
             resolution={4096}
             blur={0}
           />
@@ -156,7 +157,7 @@ function RealisticOcean({ isMobile }: { isMobile: boolean }) {
   waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
 
   const ocean = useMemo(() => {
-    const geometry = new THREE.PlaneGeometry(200, 200);
+    const geometry = new THREE.CircleGeometry(60, 128);
     const water = new Water(geometry, {
       textureWidth: 1024,
       textureHeight: 1024,
@@ -178,4 +179,29 @@ function RealisticOcean({ isMobile }: { isMobile: boolean }) {
   });
 
   return <primitive object={ocean} />;
+}
+
+const HDRI_URL =
+  "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/citrus_orchard_road_puresky_4k.hdr";
+
+function FoggySky() {
+  const texture = useLoader(RGBELoader, HDRI_URL);
+  useMemo(() => {
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    texture.needsUpdate = true;
+  }, [texture]);
+
+  return (
+    <mesh scale={-1}>
+      <sphereGeometry args={[80, 64, 64]} />
+      <meshBasicMaterial
+        map={texture}
+        color="#06080f"
+        side={THREE.BackSide}
+        fog
+        depthWrite={false}
+        toneMapped={false}
+      />
+    </mesh>
+  );
 }

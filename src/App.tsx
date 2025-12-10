@@ -1,6 +1,6 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet } from "react-router-dom";
 
-import logo from './assets/icon.jpg'
+import logo from "./assets/icon.jpg";
 
 export default function App() {
   return (
@@ -11,35 +11,69 @@ export default function App() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }
 
 function Header() {
   return (
     <header className="sticky top-0 z-40 backdrop-blur bg-ink/70 border-b border-white/5">
       <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-        <NavLink to="/" className="flex items-center gap-3 font-heading text-lg tracking-wide">
-          <img src={logo} alt="Ocean Root Productions logo" className="h-8 w-8 rounded" />
-          <span className="text-seafoam">Ocean Root</span>
-          <span className="text-deep-ocean"> Productions</span>
+        <NavLink
+          to="/"
+          className="flex items-center gap-3 font-heading text-lg tracking-wide"
+        >
+          <img
+            src={logo}
+            alt="OceanRoot Productions logo"
+            className="h-8 w-8 rounded"
+          />
+          <span className="text-seafoam">OceanRoot</span>
+          <span className="text-seafoam"> Productions</span>
         </NavLink>
         <nav className="hidden sm:flex gap-6 text-sm">
-          <NavLink to="/projects" className={({isActive}) => isActive ? 'text-coral-accent' : 'hover:text-seafoam/80'}>Projects</NavLink>
-          <NavLink to="/studio" className={({isActive}) => isActive ? 'text-coral-accent' : 'hover:text-seafoam/80'}>Studio</NavLink>
-          <NavLink to="/contact" className={({isActive}) => isActive ? 'text-coral-accent' : 'hover:text-seafoam/80'}>Contact</NavLink>
+          <NavLink
+            to="/projects"
+            className={({ isActive }) =>
+              isActive
+                ? "text-sky-300"
+                : "text-sky-200 hover:text-sky-100 transition-colors"
+            }
+          >
+            Projects
+          </NavLink>
+          <NavLink
+            to="/studio"
+            className={({ isActive }) =>
+              isActive
+                ? "text-sky-300"
+                : "text-sky-200 hover:text-sky-100 transition-colors"
+            }
+          >
+            Studio
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive
+                ? "text-sky-300"
+                : "text-sky-200 hover:text-sky-100 transition-colors"
+            }
+          >
+            Contact
+          </NavLink>
         </nav>
       </div>
     </header>
-  )
+  );
 }
 
 function Footer() {
   return (
     <footer className="border-t border-white/5">
       <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-white/60 flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-between">
-        <p>© {new Date().getFullYear()} Ocean Root Productions</p>
+        <p>© {new Date().getFullYear()} OceanRoot Productions</p>
         <p>We craft immersive VR worlds.</p>
       </div>
     </footer>
-  )
+  );
 }

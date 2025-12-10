@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => {
   return {
     base,
     plugins: [react()],
+    assetsInclude: ['**/*.fbx'],
     build: {
       target: 'es2018',
       sourcemap: false,
