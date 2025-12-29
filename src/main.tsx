@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import App from './App'
 import Home from './routes/Home'
@@ -11,7 +11,7 @@ import NotFound from './routes/NotFound'
 import TwistedDarkPrivacy from './routes/TwistedDarkPrivacy'
 import TwistedDarkTerms from './routes/TwistedDarkTerms'
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,

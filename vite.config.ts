@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
     if (!p.endsWith('/')) p = p + '/'
     return p
   }
-  // Derive base for GitHub Pages automatically when running in CI
+  // Default to GitHub Pages repo name (/website/) unless overridden
   let base = process.env.BASE_PATH
   if (!base && process.env.GITHUB_REPOSITORY) {
     const repo = process.env.GITHUB_REPOSITORY.split('/')[1]
