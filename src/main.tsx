@@ -8,6 +8,8 @@ import Projects from './routes/Projects'
 import Studio from './routes/Studio'
 import Contact from './routes/Contact'
 import NotFound from './routes/NotFound'
+import TwistedDarkPrivacy from './routes/TwistedDarkPrivacy'
+import TwistedDarkTerms from './routes/TwistedDarkTerms'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,8 @@ const router = createBrowserRouter([
       { path: 'projects', element: <Projects /> },
       { path: 'studio', element: <Studio /> },
       { path: 'contact', element: <Contact /> },
+      { path: 'twisteddark/privacy', element: <TwistedDarkPrivacy /> },
+      { path: 'twisteddark/terms', element: <TwistedDarkTerms /> },
       { path: '*', element: <NotFound /> },
     ],
   },
