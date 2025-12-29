@@ -108,7 +108,7 @@ You agree not to:
 We may suspend or terminate your access to the App if we reasonably believe you have breached these Terms.
 7. Data & privacy
 We describe our approach to data and privacy in our Privacy Policy, which is available at:
-[Insert your Privacy Policy URL]
+/twisteddark/privacy
 By using the App, you acknowledge that you have had an opportunity to read that Privacy Policy.
 Please note that Meta may separately collect and process information about your use of the App and your Meta Quest device according to its own terms and privacy policies, which we do not control.
 8. Changes to the App and these Terms

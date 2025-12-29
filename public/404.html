@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script>
+      (function () {
+        var l = window.location;
+        var segments = l.pathname.split("/").filter(Boolean);
+        var base = segments.length ? "/" + segments[0] : "";
+        var redirectPath = l.pathname.replace(base, "") + l.search + l.hash;
+        var target =
+          base +
+          "/index.html?redirect=" +
+          encodeURIComponent(redirectPath || "/");
+        l.replace(target);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
