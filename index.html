@@ -25,16 +25,6 @@
     <meta property="og:image" content="%BASE_URL%or-icon.jpg" />
     <meta name="twitter:card" content="summary" />
     <title>OceanRoot Productions</title>
-    <script>
-      (function () {
-        var params = new URLSearchParams(window.location.search);
-        var redirect = params.get("redirect");
-        if (!redirect) return;
-        var newPath = window.location.pathname.replace(/\/index\.html$/, "");
-        var newUrl = window.location.origin + newPath + redirect;
-        window.history.replaceState(null, "", newUrl);
-      })();
-    </script>
   </head>
   <body class="bg-ink text-seafoam">
     <div id="root"></div>
