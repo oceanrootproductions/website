@@ -10,6 +10,8 @@ import Contact from "./routes/Contact";
 import NotFound from "./routes/NotFound";
 import TwistedDarkPrivacy from "./routes/TwistedDarkPrivacy";
 import TwistedDarkTerms from "./routes/TwistedDarkTerms";
+import BloopPrivacy from "./routes/BloopPrivacy";
+import BloopTerms from "./routes/BloopTerms";
 
 const router = createBrowserRouter(
   [
@@ -23,6 +25,8 @@ const router = createBrowserRouter(
         { path: "contact", element: <Contact /> },
         { path: "twisteddark/privacy", element: <TwistedDarkPrivacy /> },
         { path: "twisteddark/terms", element: <TwistedDarkTerms /> },
+        { path: "bloop/privacy", element: <BloopPrivacy /> },
+        { path: "bloop/terms", element: <BloopTerms /> },
         { path: "*", element: <NotFound /> },
       ],
     },
