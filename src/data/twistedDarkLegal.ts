@@ -58,7 +58,7 @@ If we ever start collecting data beyond what is described here, we will update t
 If you have questions about this Privacy Policy or about privacy in relation to the App, you can contact us at:
 Ocean Root Productions
 Isle of Man
-Email: oceanrootproductions@gmail.com
+Email: admin@oceanrootproductions.com
 `;
 
 export const twistedDarkTermsDoc = `TERMS OF USE - Twisted Dark (Meta Quest)
@@ -150,5 +150,5 @@ These Terms and your use of the App are governed by the laws of the Isle of Man,
 If you have questions or concerns about the App or these Terms, you can contact us at:
 Ocean Root Productions
 Isle of Man
-Email: oceanrootproductions@gmail.com
+Email: admin@oceanrootproductions.com
 `;

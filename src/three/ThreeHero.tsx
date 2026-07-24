@@ -20,7 +20,7 @@ export default function ThreeHero() {
   const reduced = usePrefersReducedMotion();
   const autoRotate = !reduced;
 
-  const height = isMobile ? "82vh" : "82vh";
+  const height = "100svh";
 
   // Controls UI removed
 
@@ -59,16 +59,29 @@ export default function ThreeHero() {
         camera={{ position: [4, 2.4, 5], fov: 52 }}
         dpr={[1, 1.75]}
       >
-        <color attach="background" args={["#000000"]} />
-        {/* Heavy night fog */}
-        <fogExp2 attach="fog" args={[new THREE.Color("#fff"), 0.04]} />
+        <color attach="background" args={["#0a1622"]} />
+        {/* Night-ocean fog */}
+        <fogExp2 attach="fog" args={[new THREE.Color("#0a1622"), 0.032]} />
 
         {/* Lights */}
-        <ambientLight intensity={0.35} color="#8fbfff" />
+        <ambientLight intensity={0.4} color="#8fbfff" />
         <directionalLight
           position={[5, 8, 5]}
-          intensity={0.7}
+          intensity={0.9}
           color="#b0c7ff"
+        />
+        {/* Neon accent lights */}
+        <pointLight
+          position={[-5, 2, -3]}
+          intensity={30}
+          distance={16}
+          color="#ff6b6b"
+        />
+        <pointLight
+          position={[3, 0.5, 4]}
+          intensity={24}
+          distance={14}
+          color="#7ee7ff"
         />
 
         {/* Scene */}
@@ -194,7 +207,7 @@ function FoggySky() {
       <sphereGeometry args={[80, 64, 64]} />
       <meshBasicMaterial
         map={texture}
-        color="#06080f"
+        color="#0d1b2b"
         side={THREE.BackSide}
         fog
         depthWrite={false}

@@ -5,16 +5,23 @@ export type Project = {
   tags: string[]
   link?: string
   video?: string
+  /** Featured projects render as a full-width banner card. */
+  featured?: boolean
 }
 
-import cover1 from '../assets/projects/reef-story.svg'
-import cover2 from '../assets/projects/tide-garden.svg'
-import cover3 from '../assets/projects/abyss-lullaby.svg'
-import cover4 from '../assets/projects/coral-signal.svg'
+import coverBloop from '../assets/pictures/bloop.webp'
 import coverFortnite from '../assets/pictures/hauntedmansion.jpeg'
 import coverTwisted from '../assets/pictures/twisteddark.jpeg'
 
 export const projects: Project[] = [
+  {
+    id: 'bloop',
+    title: 'Bloop!',
+    cover: coverBloop,
+    tags: ['VR', 'Puzzle', 'Meta Quest'],
+    link: 'https://www.meta.com/experiences/bloop/1185448207983215/',
+    featured: true,
+  },
   {
     id: 'twisted-dark',
     title: 'Twisted Dark VR',

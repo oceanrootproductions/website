@@ -23,3 +23,8 @@ declare module '*.webp' {
   export default src
 }
 
+declare module '*.fbx' {
+  const src: string
+  export default src
+}
+

@@ -97,7 +97,7 @@ If we make significant changes, we may notify you via an in-game message, or via
 If you have questions about this Privacy Policy or about privacy in relation to Bloop, you can contact us at:
 Ocean Root Productions
 Isle of Man
-Email: oceanrootproductions@gmail.com
+Email: admin@oceanrootproductions.com
 `;
 
 export const bloopTermsDoc = `TERMS OF USE - Bloop
@@ -196,5 +196,5 @@ These Terms and your use of the Game are governed by the laws of the Isle of Man
 If you have questions about the Game or these Terms, you can contact us at:
 Ocean Root Productions
 Isle of Man
-Email: oceanrootproductions@gmail.com
+Email: admin@oceanrootproductions.com
 `;

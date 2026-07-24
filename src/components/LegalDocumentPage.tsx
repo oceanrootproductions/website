@@ -51,7 +51,7 @@ export default function LegalDocumentPage({
         <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-deep-ocean/10 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-5xl px-4 py-14 sm:py-20">
+      <div className="relative z-10 mx-auto max-w-5xl px-4 pb-16 pt-28 sm:pb-20 sm:pt-32">
         <div className="mb-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-wide text-seafoam/80">
             <span

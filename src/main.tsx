@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import Home from "./routes/Home";
-import Projects from "./routes/Projects";
-import Studio from "./routes/Studio";
-import Contact from "./routes/Contact";
 import NotFound from "./routes/NotFound";
 import TwistedDarkPrivacy from "./routes/TwistedDarkPrivacy";
 import TwistedDarkTerms from "./routes/TwistedDarkTerms";
@@ -20,9 +21,10 @@ const router = createBrowserRouter(
       element: <App />,
       children: [
         { index: true, element: <Home /> },
-        { path: "projects", element: <Projects /> },
-        { path: "studio", element: <Studio /> },
-        { path: "contact", element: <Contact /> },
+        // Old standalone pages now live as sections on the one-page home.
+        { path: "projects", element: <Navigate to="/#projects" replace /> },
+        { path: "studio", element: <Navigate to="/#studio" replace /> },
+        { path: "contact", element: <Navigate to="/#contact" replace /> },
         { path: "twisteddark/privacy", element: <TwistedDarkPrivacy /> },
         { path: "twisteddark/terms", element: <TwistedDarkTerms /> },
         { path: "bloop/privacy", element: <BloopPrivacy /> },
