@@ -90,11 +90,7 @@ function Hero() {
         <div className="absolute inset-0 flex items-end">
           <div className="mx-auto w-full max-w-6xl px-4 pb-28 sm:pb-32">
             <Reveal className="pointer-events-auto max-w-2xl">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs uppercase tracking-[0.22em] text-white/70 backdrop-blur">
-                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-aqua" />
-                Game studio · Ocean Engine
-              </span>
-              <h1 className="mt-6 font-heading text-4xl font-bold leading-[1.05] tracking-tight text-seafoam sm:text-6xl lg:text-7xl">
+              <h1 className="font-heading text-4xl font-bold leading-[1.05] tracking-tight text-seafoam sm:text-6xl lg:text-7xl">
                 We craft{" "}
                 <span className="text-gradient">immersive worlds.</span>
               </h1>
