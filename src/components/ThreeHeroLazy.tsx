@@ -1,7 +1,10 @@
+import { lazy, Suspense } from "react";
+
 import fallbackUrl from "../assets/hero-fallback.svg";
 import { isWebGLAvailable } from "../utils/webgl";
 
-import ThreeHero from "../three/ThreeHero";
+// three.js loads in its own chunk, so the headline shows before the 3D scene is ready.
+const ThreeHero = lazy(() => import("../three/ThreeHero"));
 
 export default function ThreeHeroLazy() {
   const webgl = typeof window !== "undefined" ? isWebGLAvailable() : false;
@@ -21,5 +24,9 @@ export default function ThreeHeroLazy() {
     );
   }
 
-  return <ThreeHero />;
+  return (
+    <Suspense fallback={<div className="ocean-gradient" style={{ height: "100svh" }} />}>
+      <ThreeHero />
+    </Suspense>
+  );
 }

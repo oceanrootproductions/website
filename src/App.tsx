@@ -145,8 +145,8 @@ function Footer() {
             </span>
           </div>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/50">
-            An independent studio crafting immersive, story-rich VR and XR
-            experiences.
+            An independent game studio with deep tech roots, making games for
+            web, Android, Steam and VR.
           </p>
         </div>
 
@@ -228,7 +228,7 @@ function Footer() {
       <div className="border-t border-white/5">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-white/40 sm:flex-row">
           <p>© {new Date().getFullYear()} OceanRoot Productions. All rights reserved.</p>
-          <p>We craft immersive VR worlds.</p>
+          <p>Games, and the tech behind them.</p>
         </div>
       </div>
     </footer>

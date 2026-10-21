@@ -8,47 +8,51 @@ import ProjectCard from "../components/ProjectCard";
 import { projects } from "../data/projects";
 
 const marqueeItems = [
-  "Virtual Reality",
-  "Story-rich XR",
+  "Ocean Engine",
+  "Web · WebGPU",
+  "Android",
+  "Steam · PC",
+  "Quest · PCVR",
+  "Physics-driven gameplay",
   "Unity",
   "UEFN",
-  "Blender pipelines",
   "Gaussian splatting",
-  "Photogrammetry",
-  "Quest & PCVR",
+  "Custom tooling",
 ];
 
 const workflowPillars = [
   {
-    title: "Research to realtime",
-    badge: "Cutting-edge tech",
+    title: "Our own engine",
+    badge: "Ocean Engine",
     description:
-      "We keep an eye on new computer science, then use it where it makes scenes look great and still run smoothly.",
+      "A modern game engine we write ourselves, so performance and tools are never a black box.",
     points: [
-      "Custom modeling, triangle splatting, Gaussian splatting, and Google Seurat chosen per scene to keep detail without dropping frames.",
-      "Photogrammetry AI tools picked per project to hit quality targets and keep file sizes light.",
-      "Simple playbooks help artists and engineers move fast on new captures.",
+      "Real-time physics at the heart of gameplay: hits, falls and knockbacks are simulated, not canned.",
+      "Modern WebGPU rendering, so browser games can look and feel like native ones.",
+      "One project exported to several platforms, without a rewrite for every store.",
     ],
   },
   {
-    title: "Custom engine integrations",
-    badge: "Abstraction layers",
+    title: "Web, mobile, PC and VR",
+    badge: "Every screen",
     description:
-      "Unity building blocks remove setup work so we can focus on feel, not plumbing.",
+      "We pick the right platform for each game and ship it properly, not as an afterthought.",
     points: [
-      "Custom editor tools let us work at high-level abstractions and maximize creativity.",
-      "Pre-tuned templates keep Quest and PCVR performance steady.",
-      "Quick build and playtest flow, so ideas get in headset in days, not months.",
+      "Browser games on the big web portals and on our own site.",
+      "Mobile releases on Google Play.",
+      "PC releases on Steam.",
+      "VR worlds for Meta Quest and PCVR.",
     ],
   },
   {
-    title: "Blender on autopilot",
-    badge: "Scene baking tools",
+    title: "Tools that let a small crew ship",
+    badge: "Pipeline",
     description:
-      "Our custom Blender workflow bakes whole scenes and preps atlases before they ever touch Unity.",
+      "Custom tooling removes busywork, so the team spends its time on feel and polish.",
     points: [
-      "Texture atlases and light bake presets tuned for VR targets.",
-      "Cuts scene development time while keeping quality and comfort high.",
+      "Unity and Blender tools that bake scenes, lighting and texture atlases automatically.",
+      "Gaussian splatting and photogrammetry when a scene needs real-world detail.",
+      "Fast build-and-playtest loops, so new ideas are playable in days.",
     ],
   },
 ];
@@ -78,7 +82,9 @@ function Hero() {
     <section className="relative">
       <ThreeHeroLazy />
 
-      <div className="pointer-events-none absolute inset-0">
+      {/* z-10 keeps the headline above the 3D scene's platform labels. */}
+      <div className="pointer-events-none absolute inset-0 z-10">
+        <div className="absolute inset-y-0 left-0 hidden w-3/5 bg-gradient-to-r from-ink/70 via-ink/30 to-transparent md:block" />
         <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-ink" />
 
         <div className="absolute inset-0 flex items-end">
@@ -86,15 +92,16 @@ function Hero() {
             <Reveal className="pointer-events-auto max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs uppercase tracking-[0.22em] text-white/70 backdrop-blur">
                 <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-aqua" />
-                Independent VR · XR studio
+                Game studio · Ocean Engine
               </span>
               <h1 className="mt-6 font-heading text-4xl font-bold leading-[1.05] tracking-tight text-seafoam sm:text-6xl lg:text-7xl">
                 We craft{" "}
-                <span className="text-gradient">immersive VR worlds.</span>
+                <span className="text-gradient">immersive worlds.</span>
               </h1>
               <p className="mt-5 max-w-xl text-lg text-white/70 sm:text-xl">
-                OceanRoot Productions builds story-rich XR experiences for
-                Quest, PCVR, and beyond.
+                We make games for web, Android, Steam and VR, and we build the
+                technology behind them, starting with Ocean Engine, our own
+                multi-platform game engine.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button href="#projects">View projects</Button>
@@ -190,7 +197,7 @@ function ProjectsSection() {
           index="01"
           eyebrow="Selected work"
           title="Projects"
-          blurb="Games and immersive experiences we've shipped across VR, XR, and the metaverse."
+          blurb="Games and interactive worlds we've shipped across web, mobile, VR, and the metaverse."
         />
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {projects.map((p, i) => (
@@ -228,24 +235,24 @@ function StudioSection() {
         <SectionHeader
           index="02"
           eyebrow="Inside the studio"
-          title="Small crew. Engineered to ship."
-          blurb="We obsess over our pipeline so polish never has to wait for headcount."
+          title="A game studio with an engine room."
+          blurb="We design and ship games, and we build the technology that runs them."
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           <Reveal className="lg:col-span-2">
             <div className="h-full rounded-3xl border border-white/10 bg-white/5 p-8 sm:p-10">
               <p className="text-lg leading-relaxed text-white/80">
-                OceanRoot Productions is a small VR studio crafting amazing,
-                story-rich XR experiences. We draw inspiration from the ocean's
-                calm, focusing on gentle interactivity and evocative
-                soundscapes to build worlds that feel alive.
+                OceanRoot Productions is an independent game studio. We've
+                shipped VR worlds for Meta Quest, a Fortnite island, and
+                physics-driven games for the web and Android, and every project
+                has pushed our own technology a little further.
               </p>
               <p className="mt-5 leading-relaxed text-white/60">
-                We also obsess over our pipeline. Custom Unity and Blender
-                tools, plus careful tech choices, keep us shipping quickly
-                without giving up polish. Every system is built to keep the
-                crew moving with less rework.
+                That technology now has a name: Ocean Engine, our proprietary
+                multi-platform game engine. Owning the engine means we decide
+                how our games look, feel and perform on every screen, instead
+                of working around someone else's limits.
               </p>
             </div>
           </Reveal>
@@ -253,14 +260,14 @@ function StudioSection() {
           <Reveal delay={120}>
             <div className="h-full rounded-3xl border border-aqua/20 bg-gradient-to-b from-aqua/10 to-transparent p-8">
               <div className="text-xs uppercase tracking-[0.22em] text-aqua/80">
-                Operational focus
+                In development
               </div>
               <div className="mt-3 font-heading text-2xl text-seafoam">
-                Efficiency is our value system
+                Ocean Engine
               </div>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
-                Faster handoffs, tighter feedback loops, and thoughtful
-                automation keep our small crew moving like a much larger team.
+                Our own game engine, built for fast, physics-driven games that
+                run in the browser, on mobile and on desktop from one project.
               </p>
             </div>
           </Reveal>
@@ -317,13 +324,13 @@ function ContactSection() {
             </span>
           </div>
           <h2 className="mt-5 font-heading text-4xl font-bold leading-tight text-seafoam sm:text-6xl">
-            Have a world in mind?
+            Have a game in mind?
             <br />
             <span className="text-gradient">Let's build it together.</span>
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg text-white/60">
-            Tell us about your VR project, timeline, and how we can help. We
-            reply fast.
+            Tell us about your game, the platforms you're aiming for, and your
+            timeline. We reply fast.
           </p>
           <div className="mt-10">
             <a

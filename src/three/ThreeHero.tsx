@@ -1,218 +1,176 @@
-import React, { Suspense, useEffect, useMemo, useRef } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import {
-  Environment,
-  OrbitControls,
-  ContactShadows,
-  Points,
-  PointMaterial,
-} from "@react-three/drei";
-import { Water, RGBELoader } from "three-stdlib";
+import { useEffect, useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Environment, Grid, Lightformer, Sparkles, Stars } from "@react-three/drei";
 import * as THREE from "three";
-import VRHeadset from "./VRHeadset";
+
+import EngineCore from "./EngineCore";
+import PlatformOrbit from "./PlatformOrbit";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
-// Leva removed; simplified scene
-
+/**
+ * Home hero: Ocean Engine at the centre, the platforms we ship to circling it,
+ * over an engine-editor grid. Everything is generated in code, so nothing is downloaded.
+ */
 export default function ThreeHero() {
   const isMobile = useIsMobile();
   const reduced = usePrefersReducedMotion();
-  const autoRotate = !reduced;
+  const animate = !reduced;
 
-  const height = "100svh";
-
-  // Controls UI removed
-
-  // Gentle tilt group for mobile/coarse pointer
-  const tiltRef = useRef<THREE.Group>(null);
+  // Stop rendering once the hero has scrolled out of view.
+  const container = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(true);
   useEffect(() => {
-    if (!tiltRef.current) return;
-    const g = tiltRef.current;
-    let cleanup: (() => void) | undefined;
-    if (isMobile) {
-      const onOrient = (e: DeviceOrientationEvent) => {
-        const beta = (e.beta || 0) * (Math.PI / 180); // x
-        const gamma = (e.gamma || 0) * (Math.PI / 180); // y
-        g.rotation.x = THREE.MathUtils.clamp(beta * 0.05, -0.2, 0.2);
-        g.rotation.y = THREE.MathUtils.clamp(gamma * 0.05, -0.2, 0.2);
-      };
-      window.addEventListener("deviceorientation", onOrient);
-      cleanup = () => window.removeEventListener("deviceorientation", onOrient);
-    } else {
-      const onMove = (e: MouseEvent) => {
-        const nx = (e.clientY / window.innerHeight) * 2 - 1;
-        const ny = (e.clientX / window.innerWidth) * 2 - 1;
-        g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, nx * -0.05, 0.1);
-        g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, ny * 0.05, 0.1);
-      };
-      window.addEventListener("mousemove", onMove);
-      cleanup = () => window.removeEventListener("mousemove", onMove);
-    }
-    return cleanup;
-  }, [isMobile]);
+    const el = container.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="relative ocean-gradient" style={{ height }}>
+    <div ref={container} className="relative ocean-gradient" style={{ height: "100svh" }}>
       <Canvas
         gl={{ antialias: true, alpha: true }}
-        camera={{ position: [4, 2.4, 5], fov: 52 }}
-        dpr={[1, 1.75]}
+        camera={{ position: [0, 1.2, 13], fov: 38 }}
+        dpr={isMobile ? [1, 1.5] : [1, 1.75]}
+        frameloop={!animate ? "demand" : inView ? "always" : "never"}
       >
-        <color attach="background" args={["#0a1622"]} />
-        {/* Night-ocean fog */}
-        <fogExp2 attach="fog" args={[new THREE.Color("#0a1622"), 0.032]} />
+        <fog attach="fog" args={["#07101a", 14, 34]} />
 
-        {/* Lights */}
-        <ambientLight intensity={0.4} color="#8fbfff" />
-        <directionalLight
-          position={[5, 8, 5]}
-          intensity={0.9}
-          color="#b0c7ff"
+        <ambientLight intensity={0.35} color="#8fbfff" />
+        <hemisphereLight args={["#7ee7ff", "#0b0f12", 0.4]} />
+        <directionalLight position={[4, 6, 5]} intensity={1.1} color="#d6e6ff" />
+        <pointLight position={[-7, 3, -2]} intensity={45} distance={22} color="#ff6b6b" />
+
+        {/* Reflections for the glossy devices, lit by a few soft panels instead of a downloaded HDRI. */}
+        <Environment resolution={256} frames={1}>
+          <Lightformer form="rect" intensity={2.5} color="#7ee7ff" position={[-5, 2, 3]} scale={[4, 6, 1]} />
+          <Lightformer form="rect" intensity={1.5} color="#ff6b6b" position={[5, -1, 2]} scale={[3, 5, 1]} />
+          <Lightformer form="circle" intensity={3} position={[0, 6, 0]} scale={4} />
+        </Environment>
+
+        <Stars radius={50} depth={40} count={isMobile ? 1500 : 3500} factor={3.5} saturation={0} fade speed={animate ? 0.6 : 0} />
+
+        <Scene animate={animate} isMobile={isMobile} />
+
+        <Grid
+          position={[0, -3.2, 0]}
+          infiniteGrid
+          cellSize={0.6}
+          cellThickness={0.6}
+          cellColor="#12324a"
+          sectionSize={3}
+          sectionThickness={1.1}
+          sectionColor="#2a7fa3"
+          fadeDistance={30}
+          fadeStrength={1.5}
         />
-        {/* Neon accent lights */}
-        <pointLight
-          position={[-5, 2, -3]}
-          intensity={30}
-          distance={16}
-          color="#ff6b6b"
-        />
-        <pointLight
-          position={[3, 0.5, 4]}
-          intensity={24}
-          distance={14}
-          color="#7ee7ff"
-        />
 
-        {/* Scene */}
-        <group ref={tiltRef}>
-          <VRHeadset autoRotate={!isMobile && autoRotate} />
-        </group>
-
-        {/* Water plane */}
-        <RealisticOcean isMobile={isMobile} />
-
-        {/* Particles */}
-        <Specks count={isMobile ? 80 : 200} />
-
-        {/* Skybox + reflections */}
-        <Suspense fallback={null}>
-          <FoggySky />
-          <Environment
-            files={HDRI_URL}
-            background={false}
-            resolution={4096}
-            blur={0}
-          />
-        </Suspense>
-
-        {/* Controls: auto-rotate camera (input disabled) */}
-        <OrbitControls
-          enablePan={false}
-          enableZoom={false}
-          enableRotate={false}
-          autoRotate={autoRotate}
-          autoRotateSpeed={0.6}
-        />
+        {animate ? <CameraDrift /> : null}
       </Canvas>
-
-      {/* Controls UI removed */}
     </div>
   );
 }
 
-function Specks({ count = 150 }: { count?: number }) {
-  const ref = useRef<any>();
-  const positions = useMemo(() => new Float32Array(count * 3), [count]);
-  useMemo(() => {
-    for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      const r = 4 + Math.random() * 5;
-      const t = Math.random() * Math.PI * 2;
-      const y = -0.6 + Math.random() * 2.2;
-      positions[i3] = Math.cos(t) * r;
-      positions[i3 + 1] = y;
-      positions[i3 + 2] = Math.sin(t) * r;
-    }
-  }, [positions, count]);
+// How far the scene reaches from its centre, in its own units (orbit radius plus half a device).
+const SCENE_RADIUS = 4.3;
 
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime() * 0.05;
-    if (!ref.current) return;
-    ref.current.rotation.y = t;
+type Layout = { beside: boolean; scale: number; x: number; y: number };
+
+/**
+ * Where the scene goes so it doesn't fight the headline: beside it when the screen is wide
+ * enough, in the top-right corner on medium screens, and above it on phones.
+ */
+function useHeroLayout(): Layout {
+  const { viewport, camera, size } = useThree();
+  const { width, height, aspect } = viewport.getCurrentViewport(camera, [0, 0, 0]);
+
+  if (aspect > 1.1 && size.width >= 1200) {
+    // The hero text sits in the site's 1152px column and is about 640px wide. The scene may tuck
+    // one unit under its end, where a gradient behind the text keeps it readable.
+    const textRightPx = Math.max((size.width - 1152) / 2, 0) + 16 + 640;
+    const left = (textRightPx / size.width - 0.5) * width - 1;
+    const right = width / 2 - width * 0.03;
+    const scale = Math.min(
+      THREE.MathUtils.clamp((right - left) / 2 / SCENE_RADIUS, 0.55, 1),
+      (height * 0.44) / 3.4
+    );
+    return { beside: true, scale, x: (left + right) / 2, y: 0.5 };
+  }
+  if (aspect > 1.1) {
+    const scale = Math.min(0.6, (height * 0.44) / 3.4);
+    return { beside: false, scale, x: width / 2 - SCENE_RADIUS * scale - width * 0.02, y: height * 0.17 };
+  }
+  return { beside: false, scale: Math.min(0.6, (width * 0.48) / SCENE_RADIUS), x: 0, y: height * 0.2 };
+}
+
+function Scene({ animate, isMobile }: { animate: boolean; isMobile: boolean }) {
+  const layout = useHeroLayout();
+  return (
+    <Rig animate={animate} layout={layout}>
+      <EngineCore animate={animate} />
+      <group rotation={[0.3, 0, 0]}>
+        <PlatformOrbit animate={animate} showLabels={layout.beside && !isMobile} />
+      </group>
+      <Sparkles
+        count={isMobile ? 40 : 90}
+        scale={[9, 6, 9]}
+        size={3}
+        speed={animate ? 0.35 : 0}
+        color="#9cefff"
+        opacity={0.8}
+        noise={0.6}
+      />
+    </Rig>
+  );
+}
+
+/** Positions the scene and lets it lean gently toward the pointer. */
+function Rig({
+  animate,
+  layout,
+  children,
+}: {
+  animate: boolean;
+  layout: Layout;
+  children: React.ReactNode;
+}) {
+  const group = useRef<THREE.Group>(null);
+  const pointer = useRef({ x: 0, y: 0 });
+  const { scale, x, y } = layout;
+
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, []);
+
+  useFrame((state, dt) => {
+    const g = group.current;
+    if (!g || !animate) return;
+    g.rotation.y = THREE.MathUtils.damp(g.rotation.y, pointer.current.x * 0.25, 3, dt);
+    g.rotation.x = THREE.MathUtils.damp(g.rotation.x, pointer.current.y * 0.12, 3, dt);
+    g.position.y = y + Math.sin(state.clock.elapsedTime * 0.6) * 0.08;
   });
 
   return (
-    <group position={[0, 0.5, 0]}>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled>
-        <PointMaterial
-          color="#7ee7ff"
-          size={0.03}
-          sizeAttenuation
-          transparent
-          opacity={0.75}
-        />
-      </Points>
+    <group ref={group} position={[x, y, 0]} scale={scale}>
+      {children}
     </group>
   );
 }
 
-function RealisticOcean({ isMobile }: { isMobile: boolean }) {
-  const waterNormals = useLoader(
-    THREE.TextureLoader,
-    "https://threejs.org/examples/textures/waternormals.jpg",
-    (loader) => {
-      loader.setCrossOrigin("anonymous");
-    }
-  );
-  waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
-
-  const ocean = useMemo(() => {
-    const geometry = new THREE.CircleGeometry(60, 128);
-    const water = new Water(geometry, {
-      textureWidth: 1024,
-      textureHeight: 1024,
-      waterNormals,
-      sunDirection: new THREE.Vector3(1, 1, 0.5).normalize(),
-      sunColor: "#ffffff",
-      waterColor: "#0a2343",
-      distortionScale: isMobile ? 1.6 : 2.5,
-      fog: true,
-    });
-    water.rotation.x = -Math.PI / 2;
-    water.position.y = -1.1;
-    return water;
-  }, [waterNormals, isMobile]);
-
-  useFrame((_, delta) => {
-    if (!ocean.material?.uniforms?.time) return;
-    ocean.material.uniforms.time.value += delta;
+/** A slow sway of the camera, so the scene never looks frozen. */
+function CameraDrift() {
+  useFrame(({ camera, clock }) => {
+    const t = clock.elapsedTime;
+    camera.position.x = Math.sin(t * 0.12) * 0.6;
+    camera.position.y = 1.2 + Math.sin(t * 0.09) * 0.25;
+    camera.lookAt(0, 0, 0);
   });
-
-  return <primitive object={ocean} />;
-}
-
-const HDRI_URL =
-  "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/citrus_orchard_road_puresky_4k.hdr";
-
-function FoggySky() {
-  const texture = useLoader(RGBELoader, HDRI_URL);
-  useMemo(() => {
-    texture.mapping = THREE.EquirectangularReflectionMapping;
-    texture.needsUpdate = true;
-  }, [texture]);
-
-  return (
-    <mesh scale={-1}>
-      <sphereGeometry args={[80, 64, 64]} />
-      <meshBasicMaterial
-        map={texture}
-        color="#0d1b2b"
-        side={THREE.BackSide}
-        fog
-        depthWrite={false}
-        toneMapped={false}
-      />
-    </mesh>
-  );
+  return null;
 }
