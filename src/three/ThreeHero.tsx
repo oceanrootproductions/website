@@ -124,8 +124,8 @@ function useHeroLayout(): Layout {
       THREE.MathUtils.clamp((right - left) / 2 / SCENE_RADIUS, 0.55, 1.1),
       (height * 0.4) / 3
     );
-    // Low over the water, so its reflection sits close beneath it.
-    return { beside: true, scale, x: (left + right) / 2, y: 0.3 };
+    // Just above the water, so its reflection sits close beneath it.
+    return { beside: true, scale, x: (left + right) / 2, y: 0.6 };
   }
   if (aspect > 1.1) {
     // Up in the sky above the headline, which spans the full width here.
