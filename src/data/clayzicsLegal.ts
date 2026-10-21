@@ -3,7 +3,7 @@
 // iOS) gets its own "## On ..." section next to Android and the web.
 
 export const clayzicsPrivacyDoc = `PRIVACY POLICY - Clayzics!
-Last updated: [FILL IN: effective date]
+Last updated: 21/10/2026
 
 ## Summary
 - Clayzics! is a single-player game by OceanRoot Productions. We run no game servers, no player accounts and no analytics of our own, so we collect almost nothing about you ourselves.
@@ -24,7 +24,7 @@ Clayzics! is a single-player fighting game with clay characters and collectible 
 You earn in-game coins by playing. Coins buy card packs that contain random cards, and cards unlock characters and level them up.
 The Game is available:
 - on Android, through Google Play; and
-- on the web, in your browser, through the game portals Playgama (which may also pass the Game on to its partner sites) and CrazyGames [CONFIRM which portals are live]. [FILL IN: whether the Game can also be played on oceanrootproductions.com]
+- on the web, in your browser, through game portals such as Playgama (which may also pass the Game on to its partner sites). We may offer it on other portals, or on our own website, in the future, and will update this page when we do.
 If the Game comes to another store (for example Apple's App Store), we will add a section for that store to this policy.
 
 ## What we collect (all platforms)
@@ -36,7 +36,7 @@ In short: we process almost nothing ourselves. The third parties listed below pr
 
 ## On Android (Google Play)
 - Purchases: you can buy the "Golden Chest", a pack of in-game coins, with real money through Google Play Billing. Google handles the payment. We never receive your card or bank details, only Google's confirmation that the purchase happened, so the Game can deliver your coins.
-- Purchase reports: Google Play also gives us order and sales reports in the Google Play Console (for example an order number, the product bought, the price and the buyer's country). We use them for our accounts and to answer refund or support questions. [CONFIRM]
+- Purchase reports: Google Play also gives us order and sales reports in the Google Play Console (for example an order number, the product bought, the price and the buyer's country). We use them for our accounts and to answer refund or support questions.
 - Ads: there are no ads in the Android version today. If we add ads in the future, we will update this policy first.
 - Saves: your progress is saved on your device, in the app's private storage. Android Auto Backup is switched on, so Android may include your save in your own Google account backup. Google handles that backup under its privacy policy.
 - Permissions: the app asks for no sensitive permissions. It has no access to your location, camera, microphone, contacts or files.
@@ -44,7 +44,7 @@ In short: we process almost nothing ourselves. The third parties listed below pr
 
 ## On the web (game portals)
 - Purchases: there are no real-money purchases in the web version.
-- Ads: ads are shown by the portal's software (the Playgama Bridge SDK or the CrazyGames SDK) and the portal's advertising partners (for example Google's ad networks), not by us.
+- Ads: ads are shown by the portal's software (for example the Playgama Bridge SDK) and the portal's advertising partners (for example Google's ad networks), not by us.
 - Break ads: an ad may play at a break between matches, roughly once every 4 matches and at least 60 seconds apart.
 - Rewarded ads (optional): after a match you can choose to watch an ad for 3x coins. You only get the reward if the ad plays to the end, and you never have to watch one.
 - Cookies and consent: the portal and its ad partners may use cookies, device identifiers and similar technologies, and may show personalised ads. The portal asks for and manages your cookie and ad consent. You can change your choices with the portal's privacy tools and your browser settings.
@@ -56,14 +56,14 @@ In short: we process almost nothing ourselves. The third parties listed below pr
 These companies handle data in connection with the Game under their own terms and privacy policies, which we do not control:
 - Google (Google Play distribution, Google Play Billing, Android backup): https://policies.google.com/privacy
 - Playgama (web distribution, ads, cloud saves, analytics): https://playgama.com/confidential
-- CrazyGames (web distribution, ads): https://www.crazygames.com/privacy-policy
+- Other web game portals: if we publish the Game on another portal, that portal's privacy policy applies when you play there, and we will add it to this list.
 - The portals' advertising partners: each portal's privacy policy describes its ad partners. For how Google uses data from sites and apps that use its services, see https://policies.google.com/technologies/partner-sites
 If we add a store or an ad network (for example Apple's App Store or a mobile ad network), we will add it here.
 
 ## Why data is used, and the legal basis (GDPR)
 - Saving your progress and settings, so the Game works: necessary to provide the Game you chose to play (contract). This happens on your device or in your browser.
 - Delivering coins you bought on Google Play: necessary to perform our contract with you (contract).
-- Keeping purchase reports for our accounts: to meet our legal accounting and tax obligations (legal obligation). [CONFIRM]
+- Keeping purchase reports for our accounts: to meet our legal accounting and tax obligations (legal obligation).
 - Replying to your emails: our legitimate interest in answering questions about the Game (legitimate interests).
 - Ads, cookies and analytics on the web portals: decided by the portal and its partners, usually based on the consent you give the portal or on their legitimate interests. Their privacy policies explain this.
 We do not sell your personal data, we do not use it to build marketing profiles, and we make no automated decisions about you that have legal or similarly significant effects.
@@ -73,20 +73,20 @@ We hold no save data or player data on our own systems, so there is nothing on o
 - Android: uninstall the app, or clear its storage in your device settings. A copy may remain in your Google account backup until Android replaces or removes it; you can manage backups in your Google account settings.
 - Web: clear the portal's site data in your browser. Your Playgama cloud save is held by Playgama; use Playgama's tools or contact Playgama to delete it.
 - Deleting your save data also deletes your progress, coins and cards for good.
-- Emails you send us: kept only as long as needed to deal with your request [FILL IN: how long support emails are kept].
-- Data held by Google, Playgama, CrazyGames and their partners is kept under their own policies.
+- Emails you send us: kept for as long as we need to deal with your request, then for up to 12 months in case you contact us again about the same thing, unless the law requires us to keep them longer.
+- Purchase reports from Google Play: kept for as long as accounting and tax law requires.
+- Data held by Google, Playgama, any other portal you play on, and their partners is kept under their own policies.
 
 ## Children
-The Game is rated PEGI 12 [CONFIRM] and is not directed at children under 13 [CONFIRM target age]. We do not knowingly collect personal data from children under 13. If you think a child has given us personal data, contact us and we will delete it and, where needed, work with the relevant platform.
+The Game's age rating is shown on its store or portal page. The Game is meant for players aged 13 and over and is not directed at children under 13. We do not knowingly collect personal data from children under 13. If you think a child has given us personal data, contact us and we will delete it and, where needed, work with the relevant platform.
 
 ## Your rights
 EU, EEA and UK: under the GDPR and UK GDPR you can ask to access, correct or delete your personal data, restrict or object to its use, and receive a copy of it (data portability). Where processing is based on your consent, you can withdraw it at any time. You can also complain to your local data protection authority (in the UK, the Information Commissioner's Office).
 United States: if you live in a state with a privacy law (for example California, under the CCPA/CPRA), you can ask to know what personal information is collected about you, and to correct or delete it, and you can opt out of its "sale" or "sharing" for targeted advertising. We do not sell or share personal information. On the web portals, ad partners may; use the portal's privacy or "Do Not Sell or Share" tools to opt out. We will not treat you differently for using your rights.
-[FILL IN: any other privacy laws that apply in our country]
 Because we hold almost no data about you, most requests are best sent to the platform that holds the data (see "Third parties and their policies"). For anything we hold, such as emails you sent us, contact us at admin@oceanrootproductions.com. We will reply within the time the law requires.
 
 ## International transfers
-We do not transfer your data ourselves. Google, Playgama, CrazyGames and their partners may store and process data in countries other than yours, including outside the UK and the EU, under their own safeguards (for example Standard Contractual Clauses). Their privacy policies explain how.
+We do not transfer your data ourselves. Google, Playgama, any other portal you play on, and their partners may store and process data in countries other than yours, including outside the UK and the EU, under their own safeguards (for example Standard Contractual Clauses). Their privacy policies explain how.
 
 ## Security
 The Game does not send your save data to us, and we keep its code free of tracking and of access to data it does not need. Your platform accounts, your devices and the data the platforms hold are protected by those platforms. Anyone with access to your device or browser may be able to see or change your local save data.
@@ -99,12 +99,10 @@ OceanRoot Productions
 Isle of Man
 Email: admin@oceanrootproductions.com
 Website: https://oceanrootproductions.com
-
-[DRAFT: have a lawyer review this policy before publishing it, then remove this note.]
 `;
 
 export const clayzicsTermsDoc = `TERMS OF USE - Clayzics!
-Last updated: [FILL IN: effective date]
+Last updated: 21/10/2026
 
 ## Summary
 - Clayzics! is made by OceanRoot Productions. We give you a personal licence to play it for fun; we keep all rights in the Game.
@@ -126,11 +124,11 @@ By installing, opening or playing the Game, you accept these Terms. If you do no
 Clayzics! is a single-player fighting game with clay characters and collectible character cards. There is no multiplayer, no chat, no user-generated content and no OceanRoot Productions player account.
 The Game is available:
 - on Android, through Google Play; and
-- on the web, in your browser, through the game portals Playgama (which may also pass the Game on to its partner sites) and CrazyGames [CONFIRM which portals are live]. [FILL IN: whether the Game can also be played on oceanrootproductions.com]
+- on the web, in your browser, through game portals such as Playgama (which may also pass the Game on to its partner sites). We may offer it on other portals, or on our own website, in the future, and will update this page when we do.
 Some things differ between platforms; the platform sections below cover them. If the Game comes to another store (for example Apple's App Store), we will add a section for that store to these Terms.
 
 ## Who may play
-The Game is rated PEGI 12 [CONFIRM] and is meant for players aged 13 and over [CONFIRM target age]. If you are under 18 (or under the age of majority where you live), a parent or guardian must agree to these Terms for you, and you need their permission before buying anything.
+The Game's age rating is shown on its store or portal page. The Game is meant for players aged 13 and over. If you are under 18 (or under the age of majority where you live), a parent or guardian must agree to these Terms for you, and you need their permission before buying anything.
 
 ## Your licence to play
 We give you a personal, non-exclusive, non-transferable, revocable licence to install and play the Game for your own non-commercial entertainment, on devices you own or control, in line with these Terms and the rules of the platform you play on.
@@ -143,7 +141,7 @@ The Game and everything in it, including its code, art, clay characters, cards, 
 - You earn coins by playing. Coins buy card packs (for example Booster and Legendary packs), and cards unlock characters and level them up.
 - Coins, cards, packs and other in-game items ("Virtual Items") have no real-world monetary value. They cannot be cashed out, exchanged for real money, sold, traded or transferred, inside or outside the Game.
 - Virtual Items are licensed to you as part of your licence to play. You do not own them.
-- Packs are random: you do not know in advance which cards a pack contains. The odds for each type of pack are shown in the Game before you buy it [CONFIRM that the odds are shown before buying].
+- Packs are random: you do not know in advance which cards a pack contains. The odds for each type of pack are shown in the Game before you buy it.
 - We may rebalance the Game, including prices, pack contents, odds, rewards and items, for example to keep it fair and fun. This does not affect your rights as a consumer.
 
 ## On Android (Google Play)
@@ -176,7 +174,7 @@ You must not:
 The terms of the platform you play on also apply to your use of the Game:
 - Google Play Terms of Service: https://play.google.com/about/play-terms/
 - Playgama Terms of Use: https://playgama.com/termsofuse
-- CrazyGames Terms of Service: https://www.crazygames.com/terms-and-conditions
+- Any other web game portal you play on: that portal's own terms
 
 ## Changes to the Game and these Terms
 We may update, change or remove features, content and Virtual Items, and we may stop offering the Game on any platform. Where we can, we will give reasonable notice in the Game or on the store or portal page before we stop offering it.
@@ -198,6 +196,4 @@ OceanRoot Productions
 Isle of Man
 Email: admin@oceanrootproductions.com
 Website: https://oceanrootproductions.com
-
-[DRAFT: have a lawyer review these Terms before publishing them, then remove this note.]
 `;
