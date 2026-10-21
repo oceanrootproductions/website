@@ -34,6 +34,64 @@ function parseDocument(raw: string): ParsedDocument {
   return { titleLine, updatedLine, sections };
 }
 
+// URLs become links; [FILL IN ...], [CONFIRM ...] and [DRAFT ...] notes are highlighted.
+const inlinePattern =
+  /(https?:\/\/[^\s]*[^\s.,;:)]|\[(?:FILL IN|CONFIRM|DRAFT)[^\]]*\])/g;
+
+function renderInline(text: string) {
+  return text.split(inlinePattern).map((part, index) => {
+    if (index % 2 === 0) return part;
+    if (part.startsWith("[")) {
+      return (
+        <mark
+          key={index}
+          className="rounded bg-coral-accent/20 px-1 text-coral-accent"
+        >
+          {part}
+        </mark>
+      );
+    }
+    return (
+      <a
+        key={index}
+        href={part}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="break-all text-sky-200 underline underline-offset-2 hover:text-sky-100"
+      >
+        {part}
+      </a>
+    );
+  });
+}
+
+/** A section whose first line starts with "## " gets that line as its heading. */
+function DocumentSection({ text }: { text: string }) {
+  const [firstLine, ...rest] = text.split("\n");
+  const heading = firstLine.match(/^##\s+(.*)$/);
+  if (!heading) {
+    return (
+      <p className="whitespace-pre-line text-sm sm:text-base">
+        {renderInline(text)}
+      </p>
+    );
+  }
+
+  const body = rest.join("\n").trim();
+  return (
+    <section>
+      <h2 className="font-heading text-lg text-seafoam sm:text-xl">
+        {heading[1]}
+      </h2>
+      {body ? (
+        <p className="mt-2 whitespace-pre-line text-sm sm:text-base">
+          {renderInline(body)}
+        </p>
+      ) : null}
+    </section>
+  );
+}
+
 export default function LegalDocumentPage({
   heading,
   doc,
@@ -83,18 +141,15 @@ export default function LegalDocumentPage({
               {parsed.titleLine}
             </p>
             {parsed.updatedLine ? (
-              <p className="mt-1 text-xs text-white/60">{parsed.updatedLine}</p>
+              <p className="mt-1 text-xs text-white/60">
+                {renderInline(parsed.updatedLine)}
+              </p>
             ) : null}
           </div>
 
           <div className="space-y-5 px-6 py-6 leading-relaxed text-white/80 sm:px-8 sm:py-8">
             {parsed.sections.map((section, index) => (
-              <p
-                key={index}
-                className="whitespace-pre-line text-sm sm:text-base"
-              >
-                {section}
-              </p>
+              <DocumentSection key={index} text={section} />
             ))}
           </div>
         </div>

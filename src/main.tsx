@@ -13,6 +13,8 @@ import TwistedDarkPrivacy from "./routes/TwistedDarkPrivacy";
 import TwistedDarkTerms from "./routes/TwistedDarkTerms";
 import BloopPrivacy from "./routes/BloopPrivacy";
 import BloopTerms from "./routes/BloopTerms";
+import ClayzicsPrivacy from "./routes/ClayzicsPrivacy";
+import ClayzicsTerms from "./routes/ClayzicsTerms";
 
 const router = createBrowserRouter(
   [
@@ -29,6 +31,8 @@ const router = createBrowserRouter(
         { path: "twisteddark/terms", element: <TwistedDarkTerms /> },
         { path: "bloop/privacy", element: <BloopPrivacy /> },
         { path: "bloop/terms", element: <BloopTerms /> },
+        { path: "clayzics/privacy", element: <ClayzicsPrivacy /> },
+        { path: "clayzics/terms", element: <ClayzicsTerms /> },
         { path: "*", element: <NotFound /> },
       ],
     },

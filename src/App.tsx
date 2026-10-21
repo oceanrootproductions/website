@@ -148,6 +148,22 @@ function Footer() {
           <ul className="mt-4 space-y-2.5 text-sm">
             <li>
               <Link
+                to="/clayzics/privacy"
+                className="text-white/60 transition-colors hover:text-seafoam"
+              >
+                Clayzics! — Privacy
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/clayzics/terms"
+                className="text-white/60 transition-colors hover:text-seafoam"
+              >
+                Clayzics! — Terms
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/bloop/privacy"
                 className="text-white/60 transition-colors hover:text-seafoam"
               >
