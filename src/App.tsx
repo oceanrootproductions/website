@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigationType } from "react-router-dom";
 
-import logo from "./assets/icon.jpg";
+import logo from "./assets/logo-white.png";
 
 const sectionLinks = [
   { id: "projects", label: "Projects" },
@@ -96,7 +96,7 @@ function Header() {
           <img
             src={logo}
             alt="OceanRoot Productions logo"
-            className="h-9 w-9 rounded-lg"
+            className="h-8 w-auto"
           />
           <span className="whitespace-nowrap font-heading text-lg tracking-wide">
             <span className="font-semibold text-seafoam">OceanRoot</span>{" "}
@@ -137,7 +137,7 @@ function Footer() {
             <img
               src={logo}
               alt="OceanRoot Productions logo"
-              className="h-9 w-9 rounded-lg"
+              className="h-8 w-auto"
             />
             <span className="font-heading text-lg">
               <span className="font-semibold text-seafoam">OceanRoot</span>{" "}
