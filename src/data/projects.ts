@@ -21,9 +21,8 @@ export const projects: Project[] = [
     id: 'clayzics',
     title: 'Clayzics!',
     cover: coverClayzics,
-    tags: ['Play in browser', 'Arena battler', 'Android'],
+    tags: ['Play in browser', 'Arena battler'],
     link: '/clayzics/play',
-    featured: true,
     coverPosition: 'object-top',
   },
   {
@@ -32,7 +31,6 @@ export const projects: Project[] = [
     cover: coverBloop,
     tags: ['VR', 'Puzzle', 'Meta Quest'],
     link: 'https://www.meta.com/experiences/bloop/1185448207983215/',
-    featured: true,
   },
   {
     id: 'twisted-dark',
