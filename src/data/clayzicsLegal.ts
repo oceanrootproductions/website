@@ -9,7 +9,7 @@ Last updated: 21/10/2026
 - Clayzics! is a single-player game by OceanRoot Productions. We run no game servers, no player accounts and no analytics of our own, so we collect almost nothing about you ourselves.
 - Your progress is saved on your device or in your browser (and, on Playgama, in Playgama's cloud save).
 - On Android, purchases go through Google Play. We never see your card or bank details.
-- On the web, the game portal and its ad partners show ads and may use cookies, under their own privacy policies.
+- On our website there are no ads. On game portals, the portal and its ad partners show ads and may use cookies, under their own privacy policies.
 
 ## Who we are
 Clayzics! (the "Game") is developed and published by OceanRoot Productions ("we", "us", "our"), https://oceanrootproductions.com
@@ -24,7 +24,7 @@ Clayzics! is a single-player fighting game with clay characters and collectible 
 You earn in-game coins by playing. Coins buy card packs that contain random cards, and cards unlock characters and level them up.
 The Game is available:
 - on Android, through Google Play; and
-- on the web, in your browser, through game portals such as Playgama (which may also pass the Game on to its partner sites). We may offer it on other portals, or on our own website, in the future, and will update this page when we do.
+- on the web, in your browser, on our own website (https://oceanrootproductions.com/clayzics/play) and through game portals such as Playgama (which may also pass the Game on to its partner sites). We may offer it on other portals in the future, and will update this page when we do.
 If the Game comes to another store (for example Apple's App Store), we will add a section for that store to this policy.
 
 ## What we collect (all platforms)
@@ -42,7 +42,14 @@ In short: we process almost nothing ourselves. The third parties listed below pr
 - Permissions: the app asks for no sensitive permissions. It has no access to your location, camera, microphone, contacts or files.
 - Google Play: Google, which runs Google Play, processes data about your account, device, downloads and purchases under its own privacy policy.
 
-## On the web (game portals)
+## On our website
+- Purchases: there are no real-money purchases on our website.
+- Ads: there are no ads, and the website version of the Game contains no game portal or advertising software.
+- Saves: your progress is saved in your browser's storage, on your device only.
+- Cookies and tracking: the game page sets no cookies and has no advertising or tracking code.
+- Hosting and fonts: our website is hosted by Netlify, and its fonts are loaded from Google Fonts. Like any website, this means Netlify and Google receive technical data such as your IP address and browser details when you visit, so they can deliver the pages, fonts and Game files, under their own privacy policies.
+
+## On web game portals
 - Purchases: there are no real-money purchases in the web version.
 - Ads: ads are shown by the portal's software (for example the Playgama Bridge SDK) and the portal's advertising partners (for example Google's ad networks), not by us.
 - Break ads: an ad may play at a break between matches, roughly once every 4 matches and at least 60 seconds apart.
@@ -54,7 +61,8 @@ In short: we process almost nothing ourselves. The third parties listed below pr
 
 ## Third parties and their policies
 These companies handle data in connection with the Game under their own terms and privacy policies, which we do not control:
-- Google (Google Play distribution, Google Play Billing, Android backup): https://policies.google.com/privacy
+- Google (Google Play distribution, Google Play Billing, Android backup, and the fonts on our website): https://policies.google.com/privacy
+- Netlify (hosting of our website and the website version of the Game): https://www.netlify.com/privacy/
 - Playgama (web distribution, ads, cloud saves, analytics): https://playgama.com/confidential
 - Other web game portals: if we publish the Game on another portal, that portal's privacy policy applies when you play there, and we will add it to this list.
 - The portals' advertising partners: each portal's privacy policy describes its ad partners. For how Google uses data from sites and apps that use its services, see https://policies.google.com/technologies/partner-sites
@@ -64,6 +72,7 @@ If we add a store or an ad network (for example Apple's App Store or a mobile ad
 - Saving your progress and settings, so the Game works: necessary to provide the Game you chose to play (contract). This happens on your device or in your browser.
 - Delivering coins you bought on Google Play: necessary to perform our contract with you (contract).
 - Keeping purchase reports for our accounts: to meet our legal accounting and tax obligations (legal obligation).
+- Delivering our website and the website version of the Game (hosting by Netlify, fonts from Google Fonts): our legitimate interest in running a working, secure website (legitimate interests).
 - Replying to your emails: our legitimate interest in answering questions about the Game (legitimate interests).
 - Ads, cookies and analytics on the web portals: decided by the portal and its partners, usually based on the consent you give the portal or on their legitimate interests. Their privacy policies explain this.
 We do not sell your personal data, we do not use it to build marketing profiles, and we make no automated decisions about you that have legal or similarly significant effects.
@@ -71,11 +80,11 @@ We do not sell your personal data, we do not use it to build marketing profiles,
 ## How long data is kept, and how to delete it
 We hold no save data or player data on our own systems, so there is nothing on our side to delete.
 - Android: uninstall the app, or clear its storage in your device settings. A copy may remain in your Google account backup until Android replaces or removes it; you can manage backups in your Google account settings.
-- Web: clear the portal's site data in your browser. Your Playgama cloud save is held by Playgama; use Playgama's tools or contact Playgama to delete it.
+- Web: clear the site data for our website, or for the portal, in your browser. Your Playgama cloud save is held by Playgama; use Playgama's tools or contact Playgama to delete it.
 - Deleting your save data also deletes your progress, coins and cards for good.
 - Emails you send us: kept for as long as we need to deal with your request, then for up to 12 months in case you contact us again about the same thing, unless the law requires us to keep them longer.
 - Purchase reports from Google Play: kept for as long as accounting and tax law requires.
-- Data held by Google, Playgama, any other portal you play on, and their partners is kept under their own policies.
+- Data held by Google, Netlify, Playgama, any other portal you play on, and their partners is kept under their own policies.
 
 ## Children
 The Game's age rating is shown on its store or portal page. The Game is meant for players aged 13 and over and is not directed at children under 13. We do not knowingly collect personal data from children under 13. If you think a child has given us personal data, contact us and we will delete it and, where needed, work with the relevant platform.
@@ -86,7 +95,7 @@ United States: if you live in a state with a privacy law (for example California
 Because we hold almost no data about you, most requests are best sent to the platform that holds the data (see "Third parties and their policies"). For anything we hold, such as emails you sent us, contact us at admin@oceanrootproductions.com. We will reply within the time the law requires.
 
 ## International transfers
-We do not transfer your data ourselves. Google, Playgama, any other portal you play on, and their partners may store and process data in countries other than yours, including outside the UK and the EU, under their own safeguards (for example Standard Contractual Clauses). Their privacy policies explain how.
+We do not transfer your data ourselves. Google, Netlify, Playgama, any other portal you play on, and their partners may store and process data in countries other than yours, including outside the UK and the EU, under their own safeguards (for example Standard Contractual Clauses). Their privacy policies explain how.
 
 ## Security
 The Game does not send your save data to us, and we keep its code free of tracking and of access to data it does not need. Your platform accounts, your devices and the data the platforms hold are protected by those platforms. Anyone with access to your device or browser may be able to see or change your local save data.
@@ -124,7 +133,7 @@ By installing, opening or playing the Game, you accept these Terms. If you do no
 Clayzics! is a single-player fighting game with clay characters and collectible character cards. There is no multiplayer, no chat, no user-generated content and no OceanRoot Productions player account.
 The Game is available:
 - on Android, through Google Play; and
-- on the web, in your browser, through game portals such as Playgama (which may also pass the Game on to its partner sites). We may offer it on other portals, or on our own website, in the future, and will update this page when we do.
+- on the web, in your browser, on our own website (https://oceanrootproductions.com/clayzics/play) and through game portals such as Playgama (which may also pass the Game on to its partner sites). We may offer it on other portals in the future, and will update this page when we do.
 Some things differ between platforms; the platform sections below cover them. If the Game comes to another store (for example Apple's App Store), we will add a section for that store to these Terms.
 
 ## Who may play
@@ -152,14 +161,19 @@ The Game and everything in it, including its code, art, clay characters, cards, 
 - Ads: there are no ads in the Android version today. If we add them, we will update these Terms and our Privacy Policy.
 - Saves: your progress is saved on your device. Android may include it in your own Google account backup.
 
-## On the web (game portals)
+## On our website
+- Purchases: there are no real-money purchases on our website.
+- Ads: there are no ads. The website version is free to play.
+- Saves: your progress is saved in your browser's storage, on your device only.
+
+## On web game portals
 - Purchases: there are no real-money purchases in the web version.
-- Ads: the web version is free and supported by ads, which are shown by the portal and its ad partners, not by us. We do not choose the individual ads and are not responsible for their content or for sites they link to.
+- Ads: on the portals, the Game is free and supported by ads, which are shown by the portal and its ad partners, not by us. We do not choose the individual ads and are not responsible for their content or for sites they link to.
 - Rewarded ads are optional: after a match you can choose to watch an ad for 3x coins. The reward is given only if the ad plays to the end. You never have to watch one.
 - Saves: your progress is saved in your browser and, on Playgama, in Playgama's cloud save.
 
 ## Saves and lost progress
-Your progress is stored only on your device, in your browser, and (on Playgama) in Playgama's cloud save. We have no copy. If you uninstall the Game, clear its data or your browser's site data, switch devices or browsers, or lose your device, your progress and Virtual Items may be lost, and we cannot restore them. On Android, restoring your own Google account backup may bring a save back; Android handles that, not us.
+Your progress is stored only on your device, in your browser (on our website or a portal), and (on Playgama) in Playgama's cloud save. We have no copy. If you uninstall the Game, clear its data or your browser's site data, switch devices or browsers, or lose your device, your progress and Virtual Items may be lost, and we cannot restore them. On Android, restoring your own Google account backup may bring a save back; Android handles that, not us.
 
 ## Fair play
 You must not:

@@ -206,6 +206,7 @@ function ProjectsSection() {
                 link={p.link}
                 video={p.video}
                 featured={p.featured}
+                coverPosition={p.coverPosition}
               />
             </Reveal>
           ))}

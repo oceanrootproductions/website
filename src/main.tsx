@@ -15,6 +15,7 @@ import BloopPrivacy from "./routes/BloopPrivacy";
 import BloopTerms from "./routes/BloopTerms";
 import ClayzicsPrivacy from "./routes/ClayzicsPrivacy";
 import ClayzicsTerms from "./routes/ClayzicsTerms";
+import GamePage, { GameHome } from "./routes/GamePage";
 
 const router = createBrowserRouter(
   [
@@ -33,6 +34,9 @@ const router = createBrowserRouter(
         { path: "bloop/terms", element: <BloopTerms /> },
         { path: "clayzics/privacy", element: <ClayzicsPrivacy /> },
         { path: "clayzics/terms", element: <ClayzicsTerms /> },
+        // Each game's pages share its name: /clayzics/play, /clayzics/privacy, /clayzics/terms.
+        { path: ":slug/play", element: <GamePage /> },
+        { path: ":slug", element: <GameHome /> },
         { path: "*", element: <NotFound /> },
       ],
     },

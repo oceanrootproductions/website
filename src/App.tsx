@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { Link, Outlet, useLocation, useNavigationType } from "react-router-dom";
 
 import logo from "./assets/icon.jpg";
 
@@ -34,9 +34,36 @@ function AnchorLink({
   );
 }
 
+// Scroll position of each history entry, so Back returns to where you were.
+const savedScroll = new Map<string, number>();
+
+/** New pages open at the top, Back and Forward return to where you were, and Home handles #hash links. */
+function ScrollManager() {
+  const { key, hash } = useLocation();
+  const navigationType = useNavigationType();
+
+  useEffect(() => {
+    const save = () => savedScroll.set(key, window.scrollY);
+    window.addEventListener("scroll", save, { passive: true });
+    return () => window.removeEventListener("scroll", save);
+  }, [key]);
+
+  useLayoutEffect(() => {
+    if (navigationType === "POP") {
+      const top = savedScroll.get(key);
+      if (top !== undefined) window.scrollTo({ top, behavior: "instant" });
+    } else if (!hash) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [key, hash, navigationType]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-ink text-seafoam">
+      <ScrollManager />
       <Header />
       <main className="flex-1">
         <Outlet />

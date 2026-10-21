@@ -7,13 +7,25 @@ export type Project = {
   video?: string
   /** Featured projects render as a full-width banner card. */
   featured?: boolean
+  /** Tailwind object-position class for cropping the cover, e.g. 'object-top' to keep a logo in view. */
+  coverPosition?: string
 }
 
 import coverBloop from '../assets/pictures/bloop.webp'
+import coverClayzics from '../assets/pictures/clayzics.jpg'
 import coverFortnite from '../assets/pictures/hauntedmansion.jpeg'
 import coverTwisted from '../assets/pictures/twisteddark.jpeg'
 
 export const projects: Project[] = [
+  {
+    id: 'clayzics',
+    title: 'Clayzics!',
+    cover: coverClayzics,
+    tags: ['Play in browser', 'Arena battler', 'Android'],
+    link: '/clayzics/play',
+    featured: true,
+    coverPosition: 'object-top',
+  },
   {
     id: 'bloop',
     title: 'Bloop!',

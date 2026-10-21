@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 type Props = {
   title: string
   cover: string
@@ -5,9 +7,12 @@ type Props = {
   link?: string
   video?: string
   featured?: boolean
+  coverPosition?: string
 }
 
-export default function ProjectCard({ title, cover, tags, link, video, featured }: Props) {
+export default function ProjectCard({ title, cover, tags, link, video, featured, coverPosition = '' }: Props) {
+  // Site links ("/clayzics/play") open a page you can play on; others leave the site.
+  const internal = link?.startsWith('/')
   const aspect = featured ? 'aspect-[16/10] sm:aspect-[21/8]' : 'aspect-[16/10]'
   const content = (
     <>
@@ -26,7 +31,7 @@ export default function ProjectCard({ title, cover, tags, link, video, featured 
           <img
             src={cover}
             alt={title}
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className={`h-full w-full object-cover ${coverPosition} transition-transform duration-700 ease-out group-hover:scale-105`}
             loading="lazy"
           />
         )}
@@ -55,7 +60,7 @@ export default function ProjectCard({ title, cover, tags, link, video, featured 
             aria-hidden
             className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-ink/50 text-lg text-seafoam backdrop-blur transition-all duration-300 group-hover:bg-seafoam group-hover:text-ink"
           >
-            ↗
+            {internal ? '▶︎' : '↗'}
           </span>
         )}
       </div>
@@ -65,6 +70,13 @@ export default function ProjectCard({ title, cover, tags, link, video, featured 
   const cls =
     'group relative block overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 hover:border-aqua/30 hover:shadow-glow'
 
+  if (link && internal) {
+    return (
+      <Link to={link} className={cls} aria-label={`Play ${title}`}>
+        {content}
+      </Link>
+    )
+  }
   if (link) {
     return (
       <a href={link} target="_blank" rel="noreferrer noopener" className={cls} aria-label={title}>
