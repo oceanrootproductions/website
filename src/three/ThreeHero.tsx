@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, invalidate, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer, Sparkles, Stars } from "@react-three/drei";
 import * as THREE from "three";
 
 import EngineCore from "./EngineCore";
 import Ocean, { Ripples } from "./Ocean";
 import PlatformOrbit, { ORBIT_RADIUS } from "./PlatformOrbit";
+import type { Spin } from "./spin";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
@@ -32,8 +33,43 @@ export default function ThreeHero() {
     return () => observer.disconnect();
   }, []);
 
+  // Drag sideways, with a mouse or a finger, to spin the planet; vertical swipes still scroll the page.
+  const spin = useMemo<Spin>(() => ({ angle: 0, velocity: 0, dragging: false }), []);
+  const drag = useRef<{ x: number; time: number } | null>(null);
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    drag.current = { x: e.clientX, time: performance.now() };
+    spin.dragging = true;
+    spin.velocity = 0;
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const last = drag.current;
+    if (!last) return;
+    const now = performance.now();
+    const turn = (e.clientX - last.x) * 0.006;
+    spin.angle += turn;
+    spin.velocity = THREE.MathUtils.clamp(turn / Math.max((now - last.time) / 1000, 0.008), -8, 8);
+    drag.current = { x: e.clientX, time: now };
+    if (!animate) invalidate();
+  };
+  const endDrag = () => {
+    // Holding still before letting go means no fling.
+    if (drag.current && performance.now() - drag.current.time > 80) spin.velocity = 0;
+    drag.current = null;
+    spin.dragging = false;
+  };
+
   return (
-    <div ref={container} className="relative ocean-gradient" style={{ height: "100svh" }}>
+    <div
+      ref={container}
+      className="relative cursor-grab ocean-gradient active:cursor-grabbing"
+      style={{ height: "100svh", touchAction: "pan-y" }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+    >
       <Canvas
         gl={{ antialias: true, alpha: true }}
         camera={{ position: [0, 0.6, 13], fov: 38 }}
@@ -55,7 +91,7 @@ export default function ThreeHero() {
 
         <Stars radius={70} depth={30} count={isMobile ? 1200 : 3000} factor={3} saturation={0} fade speed={animate ? 0.5 : 0} />
 
-        <Scene animate={animate} isMobile={isMobile} />
+        <Scene animate={animate} isMobile={isMobile} spin={spin} />
 
         <Camera animate={animate} />
       </Canvas>
@@ -135,7 +171,7 @@ function useHeroLayout(): Layout {
   return { beside: false, scale: Math.min(0.7, (width * 0.48) / SCENE_RADIUS), x: 0, y: height * 0.22 };
 }
 
-function Scene({ animate, isMobile }: { animate: boolean; isMobile: boolean }) {
+function Scene({ animate, isMobile, spin }: { animate: boolean; isMobile: boolean; spin: Spin }) {
   const layout = useHeroLayout();
   // The sea's glitter path runs from the planet toward the viewer, like moonlight.
   const lightDirection = useMemo<[number, number, number]>(
@@ -143,16 +179,29 @@ function Scene({ animate, isMobile }: { animate: boolean; isMobile: boolean }) {
     [layout.x]
   );
 
+  // After a fling, the planet keeps turning and eases to a stop. Runs first each frame (priority -2),
+  // so the orbit and the moons' icons all use this frame's angle.
+  useFrame((_, dt) => {
+    if (spin.dragging || spin.velocity === 0) return;
+    if (!animate) {
+      spin.velocity = 0;
+      return;
+    }
+    spin.angle += spin.velocity * dt;
+    spin.velocity *= Math.exp(-dt * 2.5);
+    if (Math.abs(spin.velocity) < 0.001) spin.velocity = 0;
+  }, -2);
+
   return (
     <>
       <Ocean reflective={!isMobile} animate={animate} lightDirection={lightDirection} />
       <Ripples x={layout.x} animate={animate} />
       <Rig animate={animate} layout={layout}>
         <group scale={1.15}>
-          <EngineCore animate={animate} />
+          <EngineCore animate={animate} spin={spin} />
         </group>
         <group rotation={[0.18, 0, 0]}>
-          <PlatformOrbit animate={animate} showLabels={layout.beside && !isMobile} />
+          <PlatformOrbit animate={animate} showLabels={layout.beside && !isMobile} spin={spin} />
         </group>
         <Sparkles
           count={isMobile ? 30 : 60}

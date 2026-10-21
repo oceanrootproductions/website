@@ -2,6 +2,8 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
+import type { Spin } from "./spin";
+
 /** A soft round glow, drawn once and used as an additive halo in place of post-processing bloom. */
 export function useGlowTexture() {
   return useMemo(() => {
@@ -119,7 +121,8 @@ void main() {
   // Fine shimmer where two drifting noise layers cross, like light moving through water.
   float n1 = snoise(vPositionL * 2.4 + vec3(uTime * 0.18));
   float n2 = snoise(vPositionL * 3.1 - vec3(uTime * 0.14));
-  float shimmer = pow(1.0 - abs(n1 - n2), 12.0);
+  // Clamped: pow() of a negative number is undefined, and many phone GPUs draw it as black dots.
+  float shimmer = pow(max(1.0 - abs(n1 - n2), 0.0), 12.0);
   color += uGlow * shimmer * 0.22;
 
   vec3 light = normalize(vec3(-0.4, 0.8, 0.6));
@@ -132,7 +135,8 @@ void main() {
 `;
 
 /** Ocean Engine: a sphere of living water inside a slowly turning geometric lattice. */
-export default function EngineCore({ animate }: { animate: boolean }) {
+export default function EngineCore({ animate, spin }: { animate: boolean; spin: Spin }) {
+  const spinning = useRef<THREE.Group>(null);
   const lattice = useRef<THREE.Group>(null);
   const glow = useGlowTexture();
   const latticeGeometry = useMemo(() => new THREE.IcosahedronGeometry(1.42, 1), []);
@@ -147,6 +151,7 @@ export default function EngineCore({ animate }: { animate: boolean }) {
   );
 
   useFrame((_, dt) => {
+    if (spinning.current) spinning.current.rotation.y = spin.angle;
     if (!animate) return;
     uniforms.uTime.value += dt;
     if (lattice.current) {
@@ -168,29 +173,32 @@ export default function EngineCore({ animate }: { animate: boolean }) {
         />
       </sprite>
 
-      <mesh>
-        <icosahedronGeometry args={[1.05, 32]} />
-        <shaderMaterial
-          vertexShader={planetVertexShader}
-          fragmentShader={planetFragmentShader}
-          uniforms={uniforms}
-        />
-      </mesh>
-
-      <group ref={lattice}>
-        <lineSegments>
-          <edgesGeometry args={[latticeGeometry]} />
-          <lineBasicMaterial color="#7ee7ff" transparent opacity={0.22} />
-        </lineSegments>
-        <points geometry={latticeGeometry}>
-          <pointsMaterial
-            color="#d8fbff"
-            size={0.05}
-            sizeAttenuation
-            transparent
-            opacity={0.8}
+      {/* Turned by the visitor's drag, on top of the lattice's own slow rotation. */}
+      <group ref={spinning}>
+        <mesh>
+          <icosahedronGeometry args={[1.05, 32]} />
+          <shaderMaterial
+            vertexShader={planetVertexShader}
+            fragmentShader={planetFragmentShader}
+            uniforms={uniforms}
           />
-        </points>
+        </mesh>
+
+        <group ref={lattice}>
+          <lineSegments>
+            <edgesGeometry args={[latticeGeometry]} />
+            <lineBasicMaterial color="#7ee7ff" transparent opacity={0.22} />
+          </lineSegments>
+          <points geometry={latticeGeometry}>
+            <pointsMaterial
+              color="#d8fbff"
+              size={0.05}
+              sizeAttenuation
+              transparent
+              opacity={0.8}
+            />
+          </points>
+        </group>
       </group>
 
       <pointLight color="#4fd2ff" intensity={25} distance={10} />

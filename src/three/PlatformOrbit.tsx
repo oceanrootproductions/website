@@ -3,6 +3,8 @@ import { useFrame } from "@react-three/fiber";
 import { Float, Html, Line } from "@react-three/drei";
 import * as THREE from "three";
 
+import type { Spin } from "./spin";
+
 type DrawIcon = (ctx: CanvasRenderingContext2D) => void;
 
 const PLATFORMS: { label: string; color: string; drawIcon: DrawIcon }[] = [
@@ -19,43 +21,58 @@ const MOON_RADIUS = 0.42;
 const MOON_BODY = "#0b1d2c";
 const MOON_EDGE = "#7ee7ff";
 
+const MOON_ANGLES = PLATFORMS.map((_, i) => (i / PLATFORMS.length) * Math.PI * 2 + Math.PI / 4);
+// The orbit line stops this far (in radians) either side of each moon, just outside its glowing edge.
+const ARC_GAP = (MOON_RADIUS * 1.1 + 0.08) / ORBIT_RADIUS;
+
 /** The platforms Ocean Engine ships to: small moons riding one thin orbit around the planet. */
 export default function PlatformOrbit({
   animate,
   showLabels,
+  spin,
 }: {
   animate: boolean;
   showLabels: boolean;
+  spin: Spin;
 }) {
   const ring = useRef<THREE.Group>(null);
-  const orbitPoints = useMemo(
+  const drift = useRef(0);
+  // One arc between each pair of neighbouring moons, so the line never runs through a moon.
+  const arcs = useMemo(
     () =>
-      Array.from({ length: 129 }, (_, i) => {
-        const a = (i / 128) * Math.PI * 2;
-        return new THREE.Vector3(Math.cos(a) * ORBIT_RADIUS, 0, Math.sin(a) * ORBIT_RADIUS);
+      MOON_ANGLES.map((start, i) => {
+        const end = i === MOON_ANGLES.length - 1 ? MOON_ANGLES[0] + Math.PI * 2 : MOON_ANGLES[i + 1];
+        const from = start + ARC_GAP;
+        const to = end - ARC_GAP;
+        return Array.from({ length: 41 }, (_, j) => {
+          const a = from + ((to - from) * j) / 40;
+          return new THREE.Vector3(Math.cos(a) * ORBIT_RADIUS, 0, Math.sin(a) * ORBIT_RADIUS);
+        });
       }),
     []
   );
 
+  // Priority -1: turn the ring before the moons place their icons (default priority) this frame.
   useFrame((_, dt) => {
-    if (animate && ring.current) ring.current.rotation.y += dt * 0.08;
-  });
+    if (animate) drift.current += dt * 0.08;
+    if (ring.current) ring.current.rotation.y = drift.current + spin.angle;
+  }, -1);
 
   return (
-    <group>
-      <Line points={orbitPoints} color="#7ee7ff" lineWidth={1} transparent opacity={0.22} />
-      <group ref={ring}>
-        {PLATFORMS.map((platform, i) => (
-          <Moon
-            key={platform.label}
-            angle={(i / PLATFORMS.length) * Math.PI * 2 + Math.PI / 4}
-            ring={ring}
-            animate={animate}
-            showLabels={showLabels}
-            {...platform}
-          />
-        ))}
-      </group>
+    <group ref={ring}>
+      {arcs.map((points, i) => (
+        <Line key={i} points={points} color="#7ee7ff" lineWidth={1} transparent opacity={0.22} />
+      ))}
+      {PLATFORMS.map((platform, i) => (
+        <Moon
+          key={platform.label}
+          angle={MOON_ANGLES[i]}
+          ring={ring}
+          animate={animate}
+          showLabels={showLabels}
+          {...platform}
+        />
+      ))}
     </group>
   );
 }
@@ -87,6 +104,8 @@ function Moon({
     // moon's centre from any angle (an icon pushed along the view axis drifts off-centre at the sides).
     const mesh = iconMesh.current;
     if (mesh?.parent) {
+      // Pick up this frame's ring turn before measuring, or a fast spin leaves the icon a frame behind.
+      mesh.parent.updateWorldMatrix(true, false);
       mesh.parent.worldToLocal(toCamera.copy(camera.position));
       mesh.position.copy(toCamera.normalize().multiplyScalar(MOON_RADIUS + 0.02));
       mesh.lookAt(camera.position);
