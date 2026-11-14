@@ -1,1 +1,4 @@
+# Big demo packs live in Cloudflare R2 (cloudflare/web-assets) and the browser is sent there. A pack that is still a real
+# file in the site (Clayzics!) is served as normal: Netlify only applies this rule when no file exists at the path.
+/builds/:slug/assets.pack  https://oceanroot-web-assets.oceanrootproductions.workers.dev/:slug/assets.pack  302
 /*  /index.html  200

@@ -8,3 +8,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Big demo packs live in Cloudflare R2 (cloudflare/web-assets), not in git. Clayzics!' pack predates this and stays in git.
+public/builds/*/assets.pack
+!public/builds/clayzics/assets.pack
+

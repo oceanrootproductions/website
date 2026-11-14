@@ -14,9 +14,18 @@ export type Project = {
 import coverBloop from '../assets/pictures/bloop.webp'
 import coverClayzics from '../assets/pictures/clayzics.jpg'
 import coverFortnite from '../assets/pictures/hauntedmansion.jpeg'
+import coverPeelCathedral from '../assets/pictures/peel-cathedral.jpg'
 import coverTwisted from '../assets/pictures/twisteddark.jpeg'
 
 export const projects: Project[] = [
+  {
+    id: 'peel-cathedral',
+    title: 'Peel Cathedral',
+    cover: coverPeelCathedral,
+    tags: ['Explore in browser', 'Gaussian splatting', 'Heritage'],
+    link: '/peel-cathedral/play',
+    featured: true,
+  },
   {
     id: 'clayzics',
     title: 'Clayzics!',

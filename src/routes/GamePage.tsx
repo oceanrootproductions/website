@@ -20,17 +20,20 @@ export default function GamePage() {
   const { slug } = useParams();
   const game = games.find((g) => g.slug === slug);
 
+  const actionLabel = game?.actionLabel ?? `Play ${game?.title}`;
+
   useEffect(() => {
     if (!game) return;
-    document.title = `Play ${game.title} | OceanRoot Productions`;
+    document.title = `${actionLabel} | OceanRoot Productions`;
     return () => {
       document.title = "OceanRoot Productions";
     };
-  }, [game]);
+  }, [game, actionLabel]);
 
   if (!game) return <NotFound />;
 
   const unsupported = game.requiresWebGPU && !("gpu" in navigator);
+  const touchOnly = game.needsKeyboard && window.matchMedia("(pointer: coarse)").matches;
 
   return (
     <div className="relative">
@@ -72,21 +75,30 @@ export default function GamePage() {
         <div className="mt-8">
           <GamePlayer
             title={game.title}
+            actionLabel={actionLabel}
             src={gameBuildUrl(game)}
             cover={game.cover}
             aspectRatio={game.aspectRatio}
           />
           {unsupported ? (
             <p className="mt-3 rounded-2xl border border-coral-accent/30 bg-coral-accent/10 px-4 py-3 text-sm text-coral-accent">
-              Your browser can't run {game.title} yet, because the game needs
+              Your browser can't run {game.title} yet, because it needs
               WebGPU. Try a recent version of Chrome, Edge or Safari.
+            </p>
+          ) : null}
+          {touchOnly ? (
+            <p className="mt-3 rounded-2xl border border-aqua/30 bg-aqua/10 px-4 py-3 text-sm text-aqua">
+              {game.title} is controlled with a keyboard and mouse. Open this
+              page on a computer to walk around.
             </p>
           ) : null}
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           <section className="rounded-3xl border border-white/10 bg-white/5 p-7 sm:p-9 lg:col-span-2">
-            <h2 className="font-heading text-xl text-seafoam">About the game</h2>
+            <h2 className="font-heading text-xl text-seafoam">
+              {game.aboutHeading ?? "About the game"}
+            </h2>
             <div className="mt-4 space-y-4 leading-relaxed text-white/70">
               {game.description.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
@@ -95,7 +107,7 @@ export default function GamePage() {
 
             {game.howToPlay || game.controls?.length ? (
               <h2 className="mt-8 font-heading text-xl text-seafoam">
-                How to play
+                {game.howToHeading ?? "How to play"}
               </h2>
             ) : null}
 

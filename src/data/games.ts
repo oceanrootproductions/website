@@ -10,6 +10,12 @@ export type WebGame = {
   aspectRatio?: number
   /** Shows a notice to visitors whose browser has no WebGPU. */
   requiresWebGPU?: boolean
+  /** Shows a notice on touch screens, for builds without touch controls. */
+  needsKeyboard?: boolean
+  /** Wording for experiences that aren't games; the defaults suit a game. */
+  actionLabel?: string // the Play button and browser tab title; defaults to "Play <title>"
+  aboutHeading?: string // defaults to "About the game"
+  howToHeading?: string // defaults to "How to play"
   howToPlay?: { intro?: string; steps: string[] }
   controls?: { input: string; action: string }[]
   details: { label: string; value: string }[]
@@ -17,8 +23,49 @@ export type WebGame = {
 }
 
 import coverClayzics from '../assets/pictures/clayzics.jpg'
+import coverPeelCathedral from '../assets/pictures/peel-cathedral.jpg'
 
 export const games: WebGame[] = [
+  {
+    slug: 'peel-cathedral',
+    title: 'Peel Cathedral',
+    tagline: 'A walk through Peel Cathedral, captured with Gaussian splatting and rendered live in your browser.',
+    description: [
+      'Historic buildings carry centuries of craft and memory, and they change with every year of weather and use. Digital capture lets us record them as they are today, in enough detail to walk through, study and share with anyone, anywhere.',
+      'For this project we scanned Peel Cathedral on the Isle of Man and rebuilt it as a Gaussian splat: a 3D capture of the real building that keeps its light, its stone and its smallest details, from the carved pews to the stained glass. You can walk through it right here, rendered live by the new Gaussian splatting renderer in Ocean Engine, our own engine.',
+      'Our sincere thanks to Peel Cathedral for welcoming us and allowing us to carry out the scanning.',
+    ],
+    cover: coverPeelCathedral,
+    tags: ['Gaussian splatting', 'Heritage', 'Ocean Engine'],
+    requiresWebGPU: true,
+    needsKeyboard: true,
+    actionLabel: 'Explore Peel Cathedral',
+    aboutHeading: 'About the project',
+    howToHeading: 'How to explore',
+    howToPlay: {
+      intro: 'Take your time: the cathedral is yours to wander.',
+      steps: [
+        'Click inside the view to look around with your mouse.',
+        'Walk with W, A, S and D. Hold Shift to walk faster.',
+        'Press Esc to free your mouse again.',
+      ],
+    },
+    controls: [
+      { input: 'W A S D', action: 'Walk' },
+      { input: 'Mouse', action: 'Look around (click the view first)' },
+      { input: 'Shift', action: 'Walk faster' },
+      { input: 'Esc', action: 'Free your mouse' },
+    ],
+    details: [
+      { label: 'Type', value: 'Interactive heritage capture' },
+      { label: 'Technology', value: 'Gaussian splatting, rendered by Ocean Engine' },
+      { label: 'Platform', value: 'Web browser on a computer' },
+      { label: 'Controls', value: 'Keyboard and mouse' },
+      { label: 'Download', value: 'About 130 MB' },
+      { label: 'With thanks to', value: 'Peel Cathedral' },
+      { label: 'Developer', value: 'OceanRoot Productions' },
+    ],
+  },
   {
     slug: 'clayzics',
     title: 'Clayzics!',

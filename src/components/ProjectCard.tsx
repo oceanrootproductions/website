@@ -72,7 +72,7 @@ export default function ProjectCard({ title, cover, tags, link, video, featured,
 
   if (link && internal) {
     return (
-      <Link to={link} className={cls} aria-label={`Play ${title}`}>
+      <Link to={link} className={cls} aria-label={title}>
         {content}
       </Link>
     )

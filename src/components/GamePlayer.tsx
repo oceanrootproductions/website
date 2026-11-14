@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 
 type Props = {
   title: string;
+  /** Text on the start button, e.g. "Play Clayzics!" or "Explore Peel Cathedral". */
+  actionLabel: string;
   /** URL of the web build's index.html. */
   src: string;
   cover: string;
@@ -23,6 +25,7 @@ type FullscreenElement = HTMLElement & { webkitRequestFullscreen?: () => void };
  */
 export default function GamePlayer({
   title,
+  actionLabel,
   src,
   cover,
   aspectRatio = 16 / 9,
@@ -141,7 +144,7 @@ export default function GamePlayer({
                 </svg>
               </span>
               <span className="relative font-heading text-lg font-semibold sm:text-2xl">
-                Play {title}
+                {actionLabel}
               </span>
               <span className="relative hidden text-xs uppercase tracking-[0.22em] text-white/60 sm:block">
                 Free · Runs in your browser
@@ -154,7 +157,7 @@ export default function GamePlayer({
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-sm text-white/50">
         <p>
           {playing
-            ? "If the game doesn't respond, click inside it."
+            ? "If it doesn't respond, click inside it."
             : "The game loads when you press Play."}
         </p>
         <button
