@@ -18,4 +18,5 @@ export const KEY_CODE_BITS = {
     "Escape": 14,
     "Tab": 15,
     "KeyB": 16,
+    "KeyP": 17,
 };

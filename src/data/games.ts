@@ -43,17 +43,22 @@ export const games: WebGame[] = [
     aboutHeading: 'About the project',
     howToHeading: 'How to explore',
     howToPlay: {
-      intro: 'Take your time: the cathedral is yours to wander.',
+      intro:
+        'The visit opens with a guided camera tour of the cathedral. Whenever you want to wander on your own, switch to free walk.',
       steps: [
+        'Press P to open the menu, then choose Go to free walk. Use the arrow keys and Enter to pick an option.',
         'Click inside the view to look around with your mouse.',
         'Walk with W, A, S and D. Hold Shift to walk faster.',
-        'Press Esc to free your mouse again.',
+        'Press P again at any time for Settings, where you can change the resolution, frame rate and Gaussian splat quality.',
+        'Press Esc to free your mouse.',
       ],
     },
     controls: [
+      { input: 'P', action: 'Open or close the menu (free walk and settings)' },
       { input: 'W A S D', action: 'Walk' },
       { input: 'Mouse', action: 'Look around (click the view first)' },
       { input: 'Shift', action: 'Walk faster' },
+      { input: 'Arrow keys, Enter', action: 'Choose an option in the menu' },
       { input: 'Esc', action: 'Free your mouse' },
     ],
     details: [
