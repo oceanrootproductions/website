@@ -31,6 +31,7 @@ export default function GamePlayer({
   aspectRatio = 16 / 9,
 }: Props) {
   const frameRef = useRef<HTMLDivElement>(null);
+  const gameRef = useRef<HTMLIFrameElement>(null);
   const [playing, setPlaying] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   // Fallback for browsers that can't make a page element fullscreen (Safari on iPhone):
@@ -39,11 +40,18 @@ export default function GamePlayer({
   const doc = document as FullscreenDocument;
   const nativeFullscreen = Boolean(doc.fullscreenEnabled || doc.webkitFullscreenEnabled);
 
+  // Hand the keyboard back to the game. Pressing one of this page's own buttons (Fullscreen, Exit fullscreen) moves the
+  // keyboard to this page, and the game inside the iframe stops hearing keys: on 2026-11-15 P did nothing in fullscreen
+  // until the game itself was fixed to take the keyboard back on a click (Ocean Engine keylatch.ts). This makes it work at
+  // once, with no click, and with game builds made before that fix.
+  const focusGame = () => gameRef.current?.contentWindow?.focus();
+
   useEffect(() => {
     const onChange = () => {
       const current = (document as FullscreenDocument).fullscreenElement
         ?? (document as FullscreenDocument).webkitFullscreenElement;
       setFullscreen(current === frameRef.current);
+      focusGame();   // entering AND leaving fullscreen (the button, or Esc)
     };
     document.addEventListener("fullscreenchange", onChange);
     document.addEventListener("webkitfullscreenchange", onChange);
@@ -52,6 +60,11 @@ export default function GamePlayer({
       document.removeEventListener("webkitfullscreenchange", onChange);
     };
   }, []);
+
+  // The fallback's buttons (Safari on iPhone) take the keyboard the same way.
+  useEffect(() => {
+    if (playing) focusGame();
+  }, [expanded]);
 
   useEffect(() => {
     if (!expanded) return;
@@ -114,6 +127,7 @@ export default function GamePlayer({
         <div className={expanded ? "relative flex-1" : "absolute inset-0"}>
           {playing ? (
             <iframe
+              ref={gameRef}
               src={src}
               title={title}
               className="absolute inset-0 h-full w-full"
