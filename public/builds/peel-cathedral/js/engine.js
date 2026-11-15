@@ -415,6 +415,27 @@ export class Engine {
         const [k, lx, ly, rx, ry, pad] = this.inputSnapshot(keybits, dt, mouseDx, mouseDy);
         this.api.engine_input(k, lx, ly, rx, ry, pad);
     }
+    /** This frame's CONTROLLER (src/gamepad.ts), BEFORE input(): the engine adds it into the snapshot and judges which device is in use
+     *  (engine/scene/input.h; docs/controllers-plan.md C3). The web player's door; the editor's tick carries it in its packet (`pad`). */
+    pad(r, dt) {
+        this.api.engine_pad(r.lx, r.ly, r.rx, r.ry, r.buttons, r.connected ? 1 : 0, r.family, dt);
+    }
+    /** The device in use before anybody used one (INPUT_DEVICE_*: 0 keyboard, 1 touch): a phone's browser says touch. */
+    setPlatformDevice(device) { this.api.engine_input_platform_device(device); }
+    /** A key this front end keeps for itself (the browser's Esc): never NAMED by input.label — it still reaches the game when it can.
+     *  It takes the key's NAME (a KeyboardEvent.code, "Escape") and turns it into the engine's bit here, so a front end never indexes the
+     *  key table itself (mouselook_test holds play.ts and viewport.ts to no private key set — the C3 call first broke that lint, 2026-11-15).
+     *  A name the table lacks THROWS: a typo would otherwise keep nothing and the hint would quietly name Esc again. */
+    keepKey(code, kept = true) {
+        const bit = KEY_CODE_BITS[code];
+        if (bit === undefined)
+            throw new Error(`keepKey: "${code}" is not a key the engine knows (inputkeys.gen.ts KEY_CODE_BITS)`);
+        this.api.engine_input_key_kept(bit, kept ? 1 : 0);
+    }
+    /** What a game's script reads now: the device in use, the controller's family, and `action`'s label on that device. */
+    async inputState(action) {
+        return JSON.parse(await this.api.engine_input_state(action));
+    }
     /** The same snapshot as engine_input's arguments — [keybits, lx, ly, rx, ry, pad] — for the editor's tick (frame), which carries it. */
     inputSnapshot(keybits, dt, mouseDx = 0, mouseDy = 0) {
         const B = KEY_CODE_BITS;

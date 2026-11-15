@@ -14,6 +14,7 @@ var __rewriteRelativeImportExtension = (this && this.__rewriteRelativeImportExte
 import { Engine } from "./engine.js";
 import { attachMouseLook, attachOtherButtons, wheelNotches } from "./mouselook.js"; // 2026-10-01: first-person mouse look (pointer lock)
 import { attachKeyLatch } from "./keylatch.js";
+import { PadReader } from "./gamepad.js"; // 2026-11-15: a controller in the browser (docs/controllers-plan.md C3)
 import { KEY_CODE_BITS } from "./inputkeys.gen.js"; // 2026-10-08: a tap shorter than a frame still reaches the game
 import { chooseSave } from "./savepolicy.js"; // P6: which copy boots when a storage provider and the local mirror both answer
 import { hostAllowed } from "./sitelock.js";
@@ -200,6 +201,15 @@ async function load() {
     const STOP = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"]); // keep these from scrolling the page
     const keys = attachKeyLatch(window, KEY_CODE_BITS, (e) => !isField(e.target), (e) => { if (STOP.has(e.code))
         e.preventDefault(); });
+    const pads = new PadReader();
+    // A PHONE'S BROWSER: its primary pointer is a finger, so the device in use is touch until something else is used (input.device()).
+    // A laptop with a touch screen has a fine primary pointer (its trackpad) and stays keyboard.
+    if (window.matchMedia?.("(pointer: coarse)").matches)
+        engine.setPlatformDevice(1);
+    // THE BROWSER KEEPS ESC (it leaves full screen and frees the mouse): a hint never names it here, so a game binding Menu to Esc and P
+    // reads "P" (engine/scene/input.h input_set_key_kept). The editor's Play does not keep it: Esc reaches the game there unless the mouse
+    // is captured (said, not solved: a game's hint in the editor may name Esc while its mouse is captured).
+    engine.keepKey("Escape");
     // --- pointer → the in-game HUD (menu buttons, e.g. Knockout's START / RESTART) ---
     const cv = document.getElementById("view");
     const at = (e) => {
@@ -301,6 +311,7 @@ async function load() {
         // exactly as the device does. Calling both would advance every animation TWICE per frame. animate()
         // survives for the EDITOR's edit mode, where motion previews while no game is running (2026-09-17).
         const [mdx, mdy] = look.take(); // the captured mouse's movement this frame (0 when not captured)
+        engine.pad(pads.read(), dt); // the controller first: the engine adds it into the snapshot engine.input sets (input.h)
         engine.input(keys.snapshot(), dt, mdx, mdy);
         engine.play(dt);
         gameWantsLook = await engine.wantsMouseLook(); // the click handler reads it (above)

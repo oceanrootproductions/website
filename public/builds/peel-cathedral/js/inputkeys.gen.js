@@ -20,3 +20,6 @@ export const KEY_CODE_BITS = {
     "KeyB": 16,
     "KeyP": 17,
 };
+// Virtual-pad button name → bit (engine PAD_*), and controller family → id (engine PADFAM_*): src/gamepad.ts.
+export const PAD_BITS = { "Up": 0, "Down": 1, "Left": 2, "Right": 3, "A": 4, "B": 5, "X": 6, "Y": 7, "L": 8, "R": 9, "Start": 10, "Select": 11 };
+export const PAD_FAMILY_IDS = { generic: 0, playstation: 1, xbox: 2, nintendo: 3, vr: 4 };
